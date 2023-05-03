@@ -1,0 +1,15 @@
+.my_button{
+    margin-right: 16px; 
+    margin-top: 13.5px; 
+    border-radius: 10px; 
+    border: 0px; 
+    height: 30px;
+}
+.my_input{
+    margin-right: 16px; 
+    margin-top: 13.5px; 
+    height: 30px;
+}
+.my_link{
+    margin-top: 8px; 
+}
