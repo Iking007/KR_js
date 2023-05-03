@@ -2,7 +2,9 @@
 
 function Index(){
     return(
-        <div>Главная</div>
+        <div>
+            Главная
+        </div>
     )
 }
 
