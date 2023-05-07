@@ -7,12 +7,14 @@ const cors = require('cors');
 function Books(){
     // const books = await axios.get('https://localhost:8080/books');
     // console.log(books)
-    const [books, setBooks] = useState(null);
+    const [books, setBooks] = useState([]);
 
     useEffect(() => {
       async function fetchData() {
-        const response = await axios.get("http://localhost:8080/books",  { timeout: 5000 }).then(response => {
+        setTimeout(async() =>
+        await axios.get("http://localhost:8080/books").then(response => {
             console.log(response.data);
+            setBooks(response.data.books);
           })
           .catch(error => {
             if (error.response) {
@@ -28,19 +30,23 @@ function Books(){
               console.log('Error', error.message);
             }
             console.log(error.config);
-          });
+          }), 200
+        )
         // console.log(response);
         // const books = await response.json();
         // console.log(books)
         // setBooks(books);
       }
       fetchData();
-      console.log(books);
+      //console.log(books.map(book => book.title));
     });
     return(
         <div>
             <h1>Книги</h1>
-            {books}
+            {books ? (<ul>{books.map(book => (<li>{book.id} Название: {book.title}</li>))}</ul>): 
+            (
+                <p>Loading...</p>
+            )}
         </div>
         
     )
