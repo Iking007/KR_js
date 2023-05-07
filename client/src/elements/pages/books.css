@@ -1,0 +1,18 @@
+.my-row{
+    margin-left: 9vw; 
+    width: 80vw; 
+    min-height: 74vh;
+}
+.my-container{
+    display: flex;
+    flex-wrap: wrap; 
+    width: 80vw;
+}
+.my-book{
+    margin-left: 1vw; 
+    width: 16.10vw;
+}
+.my-book img{
+    width: 280px; 
+    height: 420px;
+}

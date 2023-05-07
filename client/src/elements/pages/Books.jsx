@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-const cors = require('cors');
-//const axios = require('axios');
-
+import "./books.css"
+import noImg from "./images/no.png"
 
 function Books(){
-    // const books = await axios.get('https://localhost:8080/books');
-    // console.log(books)
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
@@ -32,23 +29,49 @@ function Books(){
             console.log(error.config);
           }), 200
         )
-        // console.log(response);
-        // const books = await response.json();
-        // console.log(books)
-        // setBooks(books);
+
       }
       fetchData();
-      //console.log(books.map(book => book.title));
     });
     return(
-        <div>
-            <h1>Книги</h1>
-            {books ? (<ul>{books.map(book => (<li>{book.id} Название: {book.title}</li>))}</ul>): 
-            (
-                <p>Loading...</p>
-            )}
+        <div class="row my-row" >
+            <div class="container my-container">
+            {books ? 
+                (
+                <div>
+                    {books.map(book => (
+                    <div class="my-book">
+                        <div>
+                            <div>
+                                {book.img ? (<img src={book.img} alt="Тут должна быть картинка, но её нет"/>): 
+                                    (<img src={noImg}  alt="Тут должна быть картинка, но её нет"/>)
+                                }
+                            </div>
+                            <h3>{book.title}</h3>
+                        </div>
+                    </div>))}
+                </div>
+                ): 
+                (
+                    <p>Loading...</p>
+                )
+            }
+        {/* <div class="container" style="display: flex;flex-wrap: wrap; width: 80vw">
+            <div th:each="el : ${books}" style="margin-left: 1vw; width: 310px">
+                <a th:href="'/books/' + ${el.id}" style="text-decoration:none; color: #000">
+                    <div style="width: 280px; height: 420px">
+                        <img th:if="${el.img} != '' " th:src="${el.img}" style="width: 280px; height: 420px"
+                                alt="Тут должна быть картинка, но её нет"/>
+                        <img th:if="${el.img} == '' " src="https://im.wampi.ru/2022/11/28/no.png"
+                                style="width: 280px; height: 420px"
+                                alt="Тут должна быть картинка, но её нет"/>
+                    </div>
+                    <h3 th:text="${el.title}"/>
+                </a>
+            </div>
+        </div> */}
+            </div>
         </div>
-        
     )
 }
 
