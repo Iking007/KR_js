@@ -4,16 +4,16 @@ import axios from 'axios'
 import "./books.css"
 import noImg from "./images/no.png"
 
-function Books(){
-    const [page, setPage] = useState([]);
-    const [numPage, setNumPage] = useState(1);
+function Book(bookId){
+    const [book, setBook] = useState([]);
+
 
     useEffect(() => {
-      async function fetchData(numPage) {
+      async function fetchData(bookId) {
         setTimeout(async() =>
-        await axios.get("http://localhost:8080/books/" + numPage).then(response => {
+        await axios.get("http://localhost:8080/book/" + bookId).then(response => {
             console.log(response.data);
-            setPage(response.data);
+            setBook(response.data);
           })
           .catch(error => {
             if (error.response) {
@@ -33,11 +33,11 @@ function Books(){
         )
 
       }
-      fetchData(numPage);
+      fetchData(bookId);
     });
     return(
         <div>
-            {page.books ? 
+            {book.book ? 
                 (
                     <div class="my-row">
                         <div class="my-container">
@@ -50,36 +50,13 @@ function Books(){
                                     <h3>{book.title}</h3>
                                 </Link>
                             </div>))}
-                        </div>
-                        {numPage > 1 ?
-                            (<a href="#head"><button onClick={() => setNumPage(numPage - 1)}>Предыдущая</button></a>):
-                            (null)
-                        }  
-                        {page.page} 
-                        {page.maxPage == page.page ? (null): (<>...{page.maxPage}<a href="#head"><button onClick={() => setNumPage(numPage + 1)}>Следующая</button></a></>)
-                        }
-                        
+                        </div>                        
                     </div>
                 ): 
                 (
                     <>Loading...</>
                 )
-            }
-        {/* <div class="container" style="display: flex;flex-wrap: wrap; width: 80vw">
-            <div th:each="el : ${books}" style="margin-left: 1vw; width: 310px">
-                <a th:href="'/books/' + ${el.id}" style="text-decoration:none; color: #000">
-                    <div style="width: 280px; height: 420px">
-                        <img th:if="${el.img} != '' " th:src="${el.img}" style="width: 280px; height: 420px"
-                                alt="Тут должна быть картинка, но её нет"/>
-                        <img th:if="${el.img} == '' " src="https://im.wampi.ru/2022/11/28/no.png"
-                                style="width: 280px; height: 420px"
-                                alt="Тут должна быть картинка, но её нет"/>
-                    </div>
-                    <h3 th:text="${el.title}"/>
-                </a>
-            </div>
-        </div> */}
-            
+            }            
         </div>
     )
 }

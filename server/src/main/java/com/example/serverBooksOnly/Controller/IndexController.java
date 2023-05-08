@@ -5,6 +5,7 @@ import com.example.serverBooksOnly.Model.Role;
 import com.example.serverBooksOnly.Model.User;
 import com.example.serverBooksOnly.Repository.BooksRepository;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController{
     @Autowired
     BooksRepository booksRepository;
+    int elInPage = 12; // Количество элементов на странице
 
     @GetMapping("/")
     public String index(){
@@ -44,33 +46,10 @@ public class IndexController{
     @GetMapping("/books")
     @CrossOrigin(origins = "*")
     public String books(){
-        // model.addAttribute("namePage", "Книги");
-        // if(user == null){
-        //     model.addAttribute("pr", null);
-        // }
-        // else if( Objects.equals(user.getRole(), Collections.singleton(Role.USER))){
-        //     model.addAttribute("pr", 0);
-        // }
-        // else if(!Objects.equals(user.getRole(), Collections.singleton(Role.ADMIN))){
-        //     model.addAttribute("pr", 1);
-        // }
-        // else {
-        //     model.addAttribute("pr", 2);
-        // }
         List<Book> books = booksRepository.findAll();
-        // model.addAttribute("books", books);
         String message;
         JSONObject json = new JSONObject();
-        // json.put("page", "1");
 
-        // JSONArray array = new JSONArray();
-        // JSONObject item = new JSONObject();
-        // item.put("information", "test");
-        // item.put("id", 3);
-        // item.put("name", "course1");
-        // array.put(item);
-
-        // json.put("course", array);
         json.put("books", books);
         message = json.toString();
         System.out.println(message);
@@ -101,27 +80,28 @@ public class IndexController{
     }
 
     @GetMapping("/books/{id}")
-    public String bookId(@PathVariable(value = "id") long id){
-        Iterable<Book> book = booksRepository.findById(id);
-        // if (book == null){
-        //     model.addAttribute("namePage", "404");
-        //     return "index";
-        // }
-        // if(user == null){
-        //     model.addAttribute("pr", null);
-        // }
-        // else if( Objects.equals(user.getRole(), Collections.singleton(Role.USER))){
-        //     model.addAttribute("pr", 0);
-        // }
-        // else if(!Objects.equals(user.getRole(), Collections.singleton(Role.ADMIN))){
-        //     model.addAttribute("pr", 1);
-        // }
-        // else {
-        //     model.addAttribute("pr", 2);
-        // }
-        // model.addAttribute("namePage", "Книга");
-        // model.addAttribute("book", book);
-        return "book";
+    @CrossOrigin(origins = "*")
+    public String PageId(@PathVariable(value = "id") int id){
+        List<Book> books = booksRepository.findAll();
+        String message;
+        JSONObject json = new JSONObject();
+        json.put("page", id);
+        json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
+        json.put("books", Arrays.copyOfRange(books.toArray(), elInPage*id-elInPage, ((books.size() <= elInPage*id) ? books.size()-1 : elInPage*id)));
+        message = json.toString();
+        System.out.println(message);
+        return message;
+    }
+    @GetMapping("/book/{id}")
+    @CrossOrigin(origins = "*")
+    public String bookId(@PathVariable(value = "id") int id){
+        List<Book> book = booksRepository.findById(id);
+        String message;
+        JSONObject json = new JSONObject();
+        json.put("book", book.toArray());
+        message = json.toString();
+        System.out.println(message);
+        return message;
     }
     @GetMapping("/prof")
     public String prof(){

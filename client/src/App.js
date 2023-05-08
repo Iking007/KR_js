@@ -12,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/books" element={Books()}/>
         <Route path="/" element={Index()}/>
+        <Route path="/book/:id" element={Index()}/>
       </Routes>
     </div>
   );

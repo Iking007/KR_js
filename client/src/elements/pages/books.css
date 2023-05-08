@@ -9,10 +9,14 @@
     width: 80vw;
 }
 .my-book{
-    margin-left: 1vw; 
-    width: 16.10vw;
+    margin-left: 4vw; 
+    min-width: 16.10vw;
 }
-.my-book img{
-    width: 280px; 
-    height: 420px;
+.my-book img, h3{
+    width: 280px;
+}
+.my-book *{
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
 }
