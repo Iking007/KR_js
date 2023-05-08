@@ -8,6 +8,10 @@
     flex-wrap: wrap; 
     width: 80vw;
 }
+.my-numPage{
+    display: flex;
+    justify-content: center;
+}
 .my-book{
     margin-left: 4vw; 
     min-width: 16.10vw;

@@ -89,12 +89,12 @@ public class IndexController{
         json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
         json.put("books", Arrays.copyOfRange(books.toArray(), elInPage*id-elInPage, ((books.size() <= elInPage*id) ? books.size()-1 : elInPage*id)));
         message = json.toString();
-        System.out.println(message);
+        //System.out.println(message);
         return message;
     }
     @GetMapping("/book/{id}")
     @CrossOrigin(origins = "*")
-    public String bookId(@PathVariable(value = "id") int id){
+    public String bookId(@PathVariable(value = "id") long id){
         List<Book> book = booksRepository.findById(id);
         String message;
         JSONObject json = new JSONObject();

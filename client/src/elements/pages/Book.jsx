@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import {Link, Route, Routes} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import axios from 'axios'
 import "./books.css"
 import noImg from "./images/no.png"
 
-function Book(bookId){
+function Book(){
     const [book, setBook] = useState([]);
+    const location = useLocation();
+    const url = location.pathname
 
 
     useEffect(() => {
-      async function fetchData(bookId) {
-        setTimeout(async() =>
-        await axios.get("http://localhost:8080/book/" + bookId).then(response => {
+    function fetchData(url) {
+        setTimeout(() => axios.get("http://localhost:8080" + url).then(response => {
             console.log(response.data);
             setBook(response.data);
           })
@@ -31,27 +32,26 @@ function Book(bookId){
             console.log(error.config);
           }), 200
         )
-
-      }
-      fetchData(bookId);
+    }
+    fetchData(url);
     });
     return(
         <div>
             {book.book ? 
-                (
-                    <div class="my-row">
-                        <div class="my-container">
-                            {page.books.map(book => (
-                            <div class="my-book">
-                                <Link to={`/book/${book.id}`}>
-                                    {book.img ? (<img src={book.img} alt="Тут должна быть картинка, но её нет"/>): 
-                                        (<img src={noImg}  alt="Тут должна быть картинка, но её нет"/>)
-                                    }
-                                    <h3>{book.title}</h3>
-                                </Link>
-                            </div>))}
-                        </div>                        
-                    </div>
+                ( 
+                    <h1>{book.book.map((book) => (book.title))}</h1>
+                
+                    
+                    // book.book.map(book => (
+                    // <div class="my-book">
+                    //     <Link to={`/book/${book.id}`}>
+                    //         {book.img ? (<img src={book.img} alt="Тут должна быть картинка, но её нет"/>): 
+                    //             (<img src={noImg}  alt="Тут должна быть картинка, но её нет"/>)
+                    //         }
+                    //         <h3>{book.title}</h3>
+                    //     </Link>
+                    // </div>))
+
                 ): 
                 (
                     <>Loading...</>
@@ -61,4 +61,4 @@ function Book(bookId){
     )
 }
 
-export default Books;
+export default Book;

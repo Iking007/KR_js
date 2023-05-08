@@ -1,6 +1,7 @@
 import Header from "./elements/blooks/Header";
 import {Link, Route, Routes} from "react-router-dom";
 import Books from "./elements/pages/Books";
+import Book from "./elements/pages/Book";
 import Index from "./elements/pages/Index";
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/books" element={Books()}/>
         <Route path="/" element={Index()}/>
-        <Route path="/book/:id" element={Index()}/>
+        <Route path="/book/:id" element={Book()}/>
       </Routes>
     </div>
   );

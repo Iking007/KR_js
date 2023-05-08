@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {Link, Route, Routes} from "react-router-dom";
+import {Link} from "react-router-dom";
 import axios from 'axios'
 import "./books.css"
 import noImg from "./images/no.png"
@@ -8,9 +8,9 @@ function Books(){
     const [page, setPage] = useState([]);
     const [numPage, setNumPage] = useState(1);
 
+
     useEffect(() => {
-      async function fetchData(numPage) {
-        setTimeout(async() =>
+    async function fetchData(numPage) {
         await axios.get("http://localhost:8080/books/" + numPage).then(response => {
             console.log(response.data);
             setPage(response.data);
@@ -29,12 +29,10 @@ function Books(){
               console.log('Error', error.message);
             }
             console.log(error.config);
-          }), 200
-        )
-
-      }
-      fetchData(numPage);
-    });
+          })
+    }
+    fetchData(numPage);
+    },[numPage]);
     return(
         <div>
             {page.books ? 
@@ -51,14 +49,15 @@ function Books(){
                                 </Link>
                             </div>))}
                         </div>
-                        {numPage > 1 ?
-                            (<a href="#head"><button onClick={() => setNumPage(numPage - 1)}>Предыдущая</button></a>):
-                            (null)
-                        }  
-                        {page.page} 
-                        {page.maxPage == page.page ? (null): (<>...{page.maxPage}<a href="#head"><button onClick={() => setNumPage(numPage + 1)}>Следующая</button></a></>)
-                        }
-                        
+                        <div class="my-numPage">
+                            {numPage > 1 ?
+                                (<a href="#head"><button onClick={() => setNumPage(numPage - 1)}>←</button></a>):
+                                (null)
+                            }  
+                            {page.page} 
+                            {page.maxPage == page.page ? (null): (<>...{page.maxPage}<a href="#head"><button onClick={() => setNumPage(numPage + 1)}>→</button></a></>)
+                            }
+                        </div>
                     </div>
                 ): 
                 (
