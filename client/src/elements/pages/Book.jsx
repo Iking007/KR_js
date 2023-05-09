@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Component } from 'react'
 import {Link, useLocation} from "react-router-dom";
 import axios from 'axios'
 import "./books.css"
@@ -7,13 +7,12 @@ import noImg from "./images/no.png"
 function Book(){
     const [book, setBook] = useState([]);
     const location = useLocation();
-    const url = location.pathname
+    const url = location.pathname;
 
 
     useEffect(() => {
     function fetchData(url) {
         setTimeout(() => axios.get("http://localhost:8080" + url).then(response => {
-            console.log(response.data);
             setBook(response.data);
           })
           .catch(error => {
@@ -34,7 +33,7 @@ function Book(){
         )
     }
     fetchData(url);
-    });
+    },["/book/" == url.substring(0,6) ? true: false]);
     return(
         <div>
             {book.book ? 

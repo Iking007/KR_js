@@ -12,7 +12,6 @@ function Books(){
     useEffect(() => {
     async function fetchData(numPage) {
         await axios.get("http://localhost:8080/books/" + numPage).then(response => {
-            console.log(response.data);
             setPage(response.data);
           })
           .catch(error => {
@@ -63,22 +62,7 @@ function Books(){
                 (
                     <>Loading...</>
                 )
-            }
-        {/* <div class="container" style="display: flex;flex-wrap: wrap; width: 80vw">
-            <div th:each="el : ${books}" style="margin-left: 1vw; width: 310px">
-                <a th:href="'/books/' + ${el.id}" style="text-decoration:none; color: #000">
-                    <div style="width: 280px; height: 420px">
-                        <img th:if="${el.img} != '' " th:src="${el.img}" style="width: 280px; height: 420px"
-                                alt="Тут должна быть картинка, но её нет"/>
-                        <img th:if="${el.img} == '' " src="https://im.wampi.ru/2022/11/28/no.png"
-                                style="width: 280px; height: 420px"
-                                alt="Тут должна быть картинка, но её нет"/>
-                    </div>
-                    <h3 th:text="${el.title}"/>
-                </a>
-            </div>
-        </div> */}
-            
+            }            
         </div>
     )
 }
