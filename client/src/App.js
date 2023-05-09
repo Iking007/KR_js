@@ -4,6 +4,9 @@ import Books from "./elements/pages/Books";
 import Book from "./elements/pages/Book";
 import Index from "./elements/pages/Index";
 import Query from "./elements/pages/Query";
+import Genres from "./elements/pages/Genres";
+import Login from "./elements/pages/Login";
+import AddBook from "./elements/pages/AddBook";
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
         <Route path="/" element={Index()}/>
         <Route path="/book/:id" element={Book()}/>
         <Route path="/books/query" element={Query()}/>
+        <Route path="/genres" element={Genres()}/>
+        <Route path="/login" element={Login()}/>
+        <Route path="/add/book" element={AddBook()}/>
       </Routes>
     </div>
   );

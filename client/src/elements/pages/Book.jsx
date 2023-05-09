@@ -1,18 +1,19 @@
 import React, { useState, useEffect, Component } from 'react'
 import {Link, useLocation} from "react-router-dom";
 import axios from 'axios'
-import "./books.css"
+import "./css/books.css"
 import noImg from "./images/no.png"
 
 function Book(){
     const [book, setBook] = useState([]);
     const location = useLocation();
     const url = location.pathname;
+    // console.log(url);
 
 
     useEffect(() => {
-    function fetchData(url) {
-        axios.get("http://localhost:8080" + url).then(response => {
+    async function fetchData(url) {
+        await axios.get("http://localhost:8080" + url).then(response => {
             setBook(response.data);
           })
           .catch(error => {

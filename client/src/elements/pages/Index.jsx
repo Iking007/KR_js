@@ -3,7 +3,7 @@
 function Index(){
     return(
         <div>
-            Главная
+            Книги - окошки в другие миры
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {Link} from "react-router-dom";
 import axios from 'axios'
-import "./books.css"
+import "./css/books.css"
 import noImg from "./images/no.png"
 
 function Books(){

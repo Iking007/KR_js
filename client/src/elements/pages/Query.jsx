@@ -2,6 +2,7 @@ import React, { useState, useEffect, Component } from 'react'
 import {Link, useLocation} from "react-router-dom";
 import axios from 'axios'
 import noImg from "./images/no.png"
+import "./css/books.css"
 
 function Query(){
     const [page, setPage] = useState([]);
@@ -15,7 +16,7 @@ function Query(){
     useEffect(() => {
         function fetchData() {
             axios.get("http://localhost:8080/books/query?filter=" + filter + "&page=" + numPage).then(response => {
-                console.log(filter + " Запрос"); // значение параметра "myQueryParam" из URL
+                //console.log(filter + " Запрос"); // значение параметра "myQueryParam" из URL
                 setPage(response.data);
             })
             .catch(error => {
