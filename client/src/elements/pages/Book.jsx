@@ -12,7 +12,7 @@ function Book(){
 
     useEffect(() => {
     function fetchData(url) {
-        setTimeout(() => axios.get("http://localhost:8080" + url).then(response => {
+        axios.get("http://localhost:8080" + url).then(response => {
             setBook(response.data);
           })
           .catch(error => {
@@ -29,8 +29,7 @@ function Book(){
               console.log('Error', error.message);
             }
             console.log(error.config);
-          }), 200
-        )
+          })
     }
     fetchData(url);
     },["/book/" == url.substring(0,6) ? true: false]);

@@ -3,6 +3,7 @@ import {Link, Route, Routes} from "react-router-dom";
 import Books from "./elements/pages/Books";
 import Book from "./elements/pages/Book";
 import Index from "./elements/pages/Index";
+import Query from "./elements/pages/Query";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/books" element={Books()}/>
         <Route path="/" element={Index()}/>
         <Route path="/book/:id" element={Book()}/>
+        <Route path="/books/query" element={Query()}/>
       </Routes>
     </div>
   );
