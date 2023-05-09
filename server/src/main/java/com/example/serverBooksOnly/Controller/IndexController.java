@@ -43,7 +43,7 @@ public class IndexController{
         // }
         return "index";
     }
-    @GetMapping("/books")
+    @GetMapping("/allbooks")
     @CrossOrigin(origins = "*")
     public String books(){
         List<Book> books = booksRepository.findAll();
@@ -56,27 +56,17 @@ public class IndexController{
         return message;
     }
     @GetMapping("/books/query")
-    public String books(@RequestParam String filter){
-        Iterable<Book> books = booksRepository.findByTitle(filter);
-
-        // if (books.toString().isEmpty()) {
-        //     return "redirect:/books";
-        // }
-        // if(user == null){
-        //     model.addAttribute("pr", null);
-        // }
-        // else if( Objects.equals(user.getRole(), Collections.singleton(Role.USER))){
-        //     model.addAttribute("pr", 0);
-        // }
-        // else if(!Objects.equals(user.getRole(), Collections.singleton(Role.ADMIN))){
-        //     model.addAttribute("pr", 1);
-        // }
-        // else {
-        //     model.addAttribute("pr", 2);
-        // }
-        // model.addAttribute("namePage", "Книги");
-        // model.addAttribute("books", books);
-        return "index";
+    @CrossOrigin(origins = "*")
+    public String booksQueru(@RequestParam String filter, @RequestParam int page){
+        List<Book> books = booksRepository.searchByTitle(filter);
+        String message;
+        JSONObject json = new JSONObject();
+        json.put("page", page);
+        json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
+        json.put("books", books);
+        message = json.toString();
+        System.out.println(message);
+        return message;
     }
 
     @GetMapping("/books/{id}")
