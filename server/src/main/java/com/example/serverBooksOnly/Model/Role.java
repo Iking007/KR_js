@@ -1,8 +1,14 @@
 package com.example.serverBooksOnly.Model;
 
+import org.springframework.security.core.GrantedAuthority;
 
-public enum Role {
+public enum Role implements GrantedAuthority{
     USER,
     MODER,
     ADMIN;
+
+    @Override
+    public String getAuthority() {
+        return "ROLE_" + name();
+    }
 }

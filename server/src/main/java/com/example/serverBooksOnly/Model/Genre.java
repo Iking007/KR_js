@@ -6,11 +6,10 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "book_ganre")
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name_genre;
+    private String name;
 }

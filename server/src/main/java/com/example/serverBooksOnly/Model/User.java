@@ -1,13 +1,17 @@
 package com.example.serverBooksOnly.Model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.*;
+import java.util.Collection;
 import java.util.Set;
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "user")
-public class User {
+@Table(name = "user_data")
+public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
@@ -32,5 +36,39 @@ public class User {
     public void newRole(Set<Role> role){
         this.role = null;
         this.role = role;
+    }
+    public Set<Role> getRole() {
+        return role;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive();
+    }
+
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+    
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRole();
     }
 }

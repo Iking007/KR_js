@@ -10,27 +10,29 @@ function Query(){
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const filter = params.get('filter');
+    const genre_id = params.get('genre');
     //console.log(filter); // значение параметра "myQueryParam" из URL
     
 
     useEffect(() => {
         function fetchData() {
-            axios.get("http://localhost:8080/books/query?filter=" + filter + "&page=" + numPage).then(response => {
-                //console.log(filter + " Запрос"); // значение параметра "myQueryParam" из URL
+            //console.log("http://localhost:8080/query?"+"page=" + numPage + ((filter) ? ("&filter=" + filter):"") + ((genre_id) ? ("&genre_id=" + genre_id):""));
+            axios.get("http://localhost:8080/query?"+"page=" + numPage + ((filter) ? ("&filter=" + filter): "") + ((genre_id) ? ("&genre_id=" + genre_id):"")).then(response => {
+                //console.log(response.data) // значение параметра "myQueryParam" из URL
                 setPage(response.data);
             })
             .catch(error => {
                 if (error.response) {
                   // сервер ответил сообщением за пределами 2xx
-                  console.log(error.response.data);
-                  console.log(error.response.status);
-                  console.log(error.response.headers);
+                //   console.log(error.response.data);
+                //   console.log(error.response.status);
+                //   console.log(error.response.headers);
                 } else if (error.request) {
                   // запрос был выполнен, но нет ответа
-                  console.log(error.request);
+                //   console.log(error.request);
                 } else {
                   // что-то другое случилось
-                  console.log('Error', error.message);
+                //   console.log('Error', error.message);
                 }
                 console.log(error.config);
             })
@@ -44,6 +46,7 @@ function Query(){
             {page.books ? 
                 (
                     <div class="my-row">
+                        {page.query ? <p>По запросу ничего не найдено</p>: null}
                         <div class="my-container">
                             {page.books.map(book => (
                             <div class="my-book">

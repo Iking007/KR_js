@@ -25,9 +25,11 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String str, Author writer, Genre genre) {
+    public Book(String title, String str, Author author, Genre genre) {
         this.title = title;
         this.str = str;
+        this.author = author;
+        this.genre = genre;
         /**
          * \todo Дописать, когда будет добавлена таблица писателей: this.id_author = (long) 0; this.id_genre = (long) 0;
          */
