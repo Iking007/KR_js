@@ -1,6 +1,11 @@
 package com.example.serverBooksOnly.service;
 
+import com.example.serverBooksOnly.Model.User;
 import com.example.serverBooksOnly.Repository.UsersRepository;
+
+import java.util.HashSet;
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +22,12 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return usersRepository.findByEmail(email);
+        User u = usersRepository.findByEmail(email);
+        if (Objects.isNull(u)) {
+            throw new UsernameNotFoundException(String.format("User %s is not found", email));
+        }
+        return new org.springframework.security.core.userdetails.User(u.getEmail(), u.getPassword(), true, true, true, true, new HashSet<>());
+   
+        // return usersRepository.findByEmail(email);
     }
 }
