@@ -11,13 +11,17 @@ function Query(){
     const params = new URLSearchParams(location.search);
     const filter = params.get('filter');
     const genre_id = params.get('genre');
+    const author_id = params.get('author');
     //console.log(filter); // значение параметра "myQueryParam" из URL
+    console.log(author_id); // значение параметра "myQueryParam" из URL
     
 
     useEffect(() => {
         function fetchData() {
             //console.log("http://localhost:8080/query?"+"page=" + numPage + ((filter) ? ("&filter=" + filter):"") + ((genre_id) ? ("&genre_id=" + genre_id):""));
-            axios.get("http://localhost:8080/query?"+"page=" + numPage + ((filter) ? ("&filter=" + filter): "") + ((genre_id) ? ("&genre_id=" + genre_id):"")).then(response => {
+            axios.get("http://localhost:8080/query?"+"page=" + numPage + ((filter) ? ("&filter=" + filter): "") + 
+                ((genre_id) ? ("&genre_id=" + genre_id):"")+ 
+                ((genre_id) ? ("&author_id=" + author_id):"")).then(response => {
                 //console.log(response.data) // значение параметра "myQueryParam" из URL
                 setPage(response.data);
             })
@@ -37,7 +41,8 @@ function Query(){
                 console.log(error.config);
             })
         }
-        fetchData();
+        if ("/books/query" == location.pathname.substring(0,12)){
+        fetchData()};
         },["/books/query" == location.pathname.substring(0,12) ? true: false]);
   
     

@@ -7,13 +7,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.example.serverBooksOnly.Model.Role;
+import com.example.serverBooksOnly.Repository.UsersRepository;
 import com.example.serverBooksOnly.auth.AuthenticationService;
 import com.example.serverBooksOnly.auth.RegisterRequest;
 
 @SpringBootApplication
 @EnableWebMvc
 public class ServerBooksOnlyApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(ServerBooksOnlyApplication.class, args);
 	}

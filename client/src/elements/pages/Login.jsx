@@ -4,9 +4,10 @@ import axios from "axios";
 
 function Login(){
     const [page, setPage] = useState([]);
-    var form = { username: '', password: '' }
+    const [email, setEmail] = useState([]);
+    const [password, setPassword] = useState([]);
     async function postRequest(form){
-        axios.post("http://localhost:8080/login?username=" + form.username + "&password=" + form.password).then(response => {
+        axios.post("http://localhost:8080/login?email=" + email + "&password=").then(response => {
             setPage(response.data);
             console.log(form.email + " " + form.password);
           })
@@ -28,20 +29,20 @@ function Login(){
     };
     return(
         <div>
-            <form>
+          <form>
             <h1 class="h3 mb-3 fw-normal">Вход</h1>
             <div class="form-floating">
-                <input required type="email" name="email" class="form-control" value={form.email} placeholder="name@example.com"/>
-                <label for="floatingInput">Ваша почта</label>
+              <input required type="email" name="email" class="form-control" value={email} onInput={e => setEmail(e.target.value)} placeholder="name@example.com"/>
+              <label for="floatingInput">Ваша почта</label>
             </div>
             <div class="form-floating">
-                <input required type="password" name="password" class="form-control" value={form.password} minlength="8" placeholder="Password"/>
-                <label for="floatingPassword">Пароль</label>
+              <input required type="password" name="password" class="form-control" value={password} onInput={e => setPassword(e.target.value)} minlength="8" placeholder="Password"/>
+              <label for="floatingPassword">Пароль</label>
             </div>
             {page.error == true ? <p>Неверная почта или пароль</p>: null}
 
-            <button class="w-100 btn btn-lg btn-primary" type="submit" onClick={postRequest(form)}>Войти</button>
-        </form>
+            <button class="w-100 btn btn-lg btn-primary" type="submit" onClick={postRequest()}>Войти</button>
+          </form>
         </div>
     )
 }

@@ -29,7 +29,11 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(role)
                 .build();
-        repository.save(user);
+        try{
+                repository.save(user);
+        }catch(Error e){
+                System.out.println(e);
+        }
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)

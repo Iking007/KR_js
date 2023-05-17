@@ -32,7 +32,8 @@ function Book(){
             console.log(error.config);
           })
     }
-    fetchData(url);
+    if ("/book/" == url.substring(0,6)){
+    fetchData(url)};
     },["/book/" == url.substring(0,6) ? true: false]);
     return(
         <div>

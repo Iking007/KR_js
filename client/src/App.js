@@ -7,6 +7,7 @@ import Query from "./elements/pages/Query";
 import Genres from "./elements/pages/Genres";
 import Login from "./elements/pages/Login";
 import AddBook from "./elements/pages/AddBook";
+import Authors from "./elements/pages/Authors";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/book/:id" element={Book()}/>
         <Route path="/books/query" element={Query()}/>
         <Route path="/genres" element={Genres()}/>
+        <Route path="/authors" element={Authors()}/>
         <Route path="/login" element={Login()}/>
         <Route path="/add/book" element={AddBook()}/>
       </Routes>
