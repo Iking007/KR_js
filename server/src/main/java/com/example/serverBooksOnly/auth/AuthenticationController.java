@@ -2,6 +2,7 @@ package com.example.serverBooksOnly.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody AuthenticationRequest request
     ){

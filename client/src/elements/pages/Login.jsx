@@ -1,15 +1,32 @@
 import React, { useState, useEffect } from 'react'
-import axios from "axios";
+import {useLocation} from "react-router-dom";
+import axios, { formToJSON } from "axios";
 
 
 function Login(){
     const [page, setPage] = useState([]);
     const [email, setEmail] = useState([]);
     const [password, setPassword] = useState([]);
-    async function postRequest(form){
-        axios.post("http://localhost:8080/login?email=" + email + "&password=").then(response => {
+    const [query, setQuery] = useState(false);
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const emailPar = params.get('email');
+    const passwordPar = params.get('password');
+
+    useEffect(() => {
+      async function postRequest(data = {}){
+        let config = {
+          method: 'post',
+          maxBodyLength: Infinity,
+          url: 'http://localhost:8080/api/v1/auth/authenticate',
+          headers: { 
+            'Content-Type': 'application/json'
+          },
+          data: data
+        };
+        axios.request(config).then(response => {
             setPage(response.data);
-            console.log(form.email + " " + form.password);
+            console.log(response.data);
           })
           .catch(error => {
             if (error.response) {
@@ -26,10 +43,12 @@ function Login(){
             }
             console.log(error.config);
           })
-    };
+      };
+      postRequest({"email": emailPar, "password": passwordPar});
+    },[query]);
     return(
         <div>
-          <form>
+          <form id='my_form'>
             <h1 class="h3 mb-3 fw-normal">Вход</h1>
             <div class="form-floating">
               <input required type="email" name="email" class="form-control" value={email} onInput={e => setEmail(e.target.value)} placeholder="name@example.com"/>
@@ -41,7 +60,7 @@ function Login(){
             </div>
             {page.error == true ? <p>Неверная почта или пароль</p>: null}
 
-            <button class="w-100 btn btn-lg btn-primary" type="submit" onClick={postRequest()}>Войти</button>
+            <button class="w-100 btn btn-lg btn-primary" onClick={() => setQuery(!query)}>Войти</button>
           </form>
         </div>
     )
