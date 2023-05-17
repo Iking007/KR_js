@@ -1,5 +1,6 @@
 package com.example.serverBooksOnly.Controller;
 
+import com.example.serverBooksOnly.Model.Author;
 import com.example.serverBooksOnly.Model.Book;
 import com.example.serverBooksOnly.Model.Genre;
 import com.example.serverBooksOnly.Model.Role;
@@ -155,6 +156,17 @@ public class IndexController{
         String message;
         JSONObject json = new JSONObject();
         json.put("genres", genres.toArray());
+        message = json.toString();
+        System.out.println(message);
+        return message;
+    }
+    @GetMapping("/authors")
+    @CrossOrigin(origins = "*") 
+    public String Authors(){
+        List<Author> authors = authorRepository.findAll();
+        String message;
+        JSONObject json = new JSONObject();
+        json.put("authors", authors.toArray());
         message = json.toString();
         System.out.println(message);
         return message;

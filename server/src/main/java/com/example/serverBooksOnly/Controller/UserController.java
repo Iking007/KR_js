@@ -35,9 +35,9 @@ public class UserController {
         model.addAttribute("pr", 2);
         User user = usersRepository.findById(id).orElseThrow();
         switch (role) {
-            case 0 -> {user.getRole(); user.setRole(Collections.singleton(Role.USER));}
-            case 1 -> {user.getRole(); user.setRole(Collections.singleton(Role.MODER));}
-            case 2 -> {user.getRole(); user.setRole(Collections.singleton(Role.ADMIN));}
+            case 0 -> {user.getRole(); user.setRole(Role.USER);}
+            case 1 -> {user.getRole(); user.setRole(Role.MODER);}
+            case 2 -> {user.getRole(); user.setRole(Role.ADMIN);}
             default -> {
             }
         }

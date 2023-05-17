@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {Link, useLocation} from "react-router-dom";
 import axios from 'axios'
 
-function Genres(){
+function Authors(){
     const [page, setPage] = useState([]);
     const location = useLocation();
     const url = location.pathname;
@@ -31,17 +31,17 @@ function Genres(){
             console.log(error.config);
           })
     }
-    "/genres" == url ?
+    "/authors" == url ?
     fetchData(url): null;
-    },["/genres" == url ? true: false]);
+    },["/authors" == url ? true: false]);
     return(
         <div>
-        {page.genres ? 
+        {page.authors ? 
             (
                 <div>
-                    {page.genres.map(genre => (
-                    <Link to={`/books/query?genre=${genre.id}&page=1`}>
-                        <h3>{genre.name}</h3>
+                    {page.authors.map(author => (
+                    <Link to={`/books/query?author=${author.id}&page=1`}>
+                        <h3>{author.name}</h3>
                     </Link>
                     ))}
                 </div>
@@ -54,4 +54,4 @@ function Genres(){
     )
 }
 
-export default Genres;
+export default Authors;
