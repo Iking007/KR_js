@@ -53,7 +53,7 @@ public class IndexController{
         // }
         return "index";
     }
-    @PreAuthorize("hasAuthority('ADMIN')")
+    
     @GetMapping("/allbooks")
     @CrossOrigin(origins = "*")
     public String books(){
@@ -138,6 +138,7 @@ public class IndexController{
         //System.out.println(message);
         return message;
     }
+    
     @GetMapping("/book/{id}")
     @CrossOrigin(origins = "*")
     public String bookId(@PathVariable(value = "id") long id){
@@ -149,6 +150,7 @@ public class IndexController{
         //System.out.println(message);
         return message;
     }
+    
     @GetMapping("/genres")
     @CrossOrigin(origins = "*") 
     public String Genres(){
@@ -160,6 +162,7 @@ public class IndexController{
         System.out.println(message);
         return message;
     }
+    
     @GetMapping("/authors")
     @CrossOrigin(origins = "*") 
     public String Authors(){
@@ -171,21 +174,10 @@ public class IndexController{
         System.out.println(message);
         return message;
     }
+    
     @GetMapping("/prof")
     public String prof(){
-        // if(user == null){
-        //     model.addAttribute("pr", null);
-        // }
-        // else if( Objects.equals(user.getRole(), Collections.singleton(Role.USER))){
-        //     model.addAttribute("pr", 0);
-        // }
-        // else if(!Objects.equals(user.getRole(), Collections.singleton(Role.ADMIN))){
-        //     model.addAttribute("pr", 1);
-        // }
-        // else {
-        //     model.addAttribute("pr", 2);
-        // }
-        // model.addAttribute("username", user.getEmail());
+        
         return "prof";
     }
     }

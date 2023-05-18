@@ -4,7 +4,7 @@ import axios, { formToJSON } from "axios";
 
 
 function Login(){
-    const [page, setPage] = useState([]);
+    const [error, setError] = useState(false);
     const [email, setEmail] = useState([]);
     const [password, setPassword] = useState([]);
     const [query, setQuery] = useState(false);
@@ -12,23 +12,27 @@ function Login(){
     const params = new URLSearchParams(location.search);
     const emailPar = params.get('email');
     const passwordPar = params.get('password');
+    //window.location.replace("/")
 
     useEffect(() => {
       async function postRequest(data = {}){
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: 'http://localhost:8080/api/v1/auth/authenticate',
+          url: 'http://localhost:8080/login',
           headers: { 
             'Content-Type': 'application/json'
           },
           data: data
         };
         axios.request(config).then(response => {
-            setPage(response.data);
             console.log(response.data);
+            localStorage.token = response.data.token;
+            window.location.replace("/")
+            //console.log(response.data);
           })
           .catch(error => {
+            setError(true)
             if (error.response) {
               // сервер ответил сообщением за пределами 2xx
               console.log(error.response.data);
@@ -44,7 +48,8 @@ function Login(){
             console.log(error.config);
           })
       };
-      postRequest({"email": emailPar, "password": passwordPar});
+      if ("/login" == location.pathname.substring(0,6)){
+      postRequest({"email": emailPar, "password": passwordPar})};
     },[query]);
     return(
         <div>
@@ -58,7 +63,7 @@ function Login(){
               <input required type="password" name="password" class="form-control" value={password} onInput={e => setPassword(e.target.value)} minlength="8" placeholder="Password"/>
               <label for="floatingPassword">Пароль</label>
             </div>
-            {page.error == true ? <p>Неверная почта или пароль</p>: null}
+            {error == true ? <p>Неверная почта или пароль</p>: null}
 
             <button class="w-100 btn btn-lg btn-primary" onClick={() => setQuery(!query)}>Войти</button>
           </form>

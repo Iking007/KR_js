@@ -20,6 +20,9 @@ public class JwtService {
 
     private static final String SECRET_KEY = "6E5A7234753778214125432A462D4A614E645267556B58703273357638792F42";
 
+    private long jwtExpiration = 86400000; // День
+    private long refreshExpiration = 604800000; // Неделя
+
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -37,12 +40,26 @@ public class JwtService {
             Map<String, Object> extraClaims,
             UserDetails userDetails
     ){
+        return buildToken(new HashMap<>(), userDetails, jwtExpiration);
+    }
+
+    public String generateRefreshToken(
+      UserDetails userDetails
+    ) {
+        return buildToken(new HashMap<>(), userDetails, refreshExpiration);
+    }
+
+    private String buildToken(
+          Map<String, Object> extraClaims,
+          UserDetails userDetails,
+          long expiration
+    ) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

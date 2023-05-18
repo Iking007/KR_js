@@ -21,8 +21,10 @@ function Header(){
                 <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/books">Книги</Link>
                 <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/genres">Жанры</Link>
                 <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/authors">Авторы</Link>
-                <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/add/book">Добавить книгу</Link>
-                <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/login">Вход</Link>
+                {localStorage.token != null ? <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/add/book">Добавить книгу</Link>: null}
+                {localStorage.token == null ? <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/login">Вход</Link>: 
+                    <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/prof">Профиль</Link>
+                }
             </nav>
         </div>
     )

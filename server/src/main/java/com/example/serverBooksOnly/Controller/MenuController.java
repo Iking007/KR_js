@@ -84,14 +84,13 @@ public class MenuController {
     }
     @PostMapping("/menu/form")
     public String newBook(@RequestParam String title, @RequestParam String img,
-                          @RequestParam String download, @RequestParam String writer, @RequestParam String str,
-                          Model model){
-        model.addAttribute("pr", 2);
-        Book book = new Book(title, str);
-        book.setDownload(download);
-        book.setImg(img);
-        System.out.println(book);
-        booksRepository.save(book);
+                          @RequestParam String download, @RequestParam String writer, @RequestParam String str){
+        // model.addAttribute("pr", 2);
+        // Book book = new Book(title, str);
+        // book.setDownload(download);
+        // book.setImg(img);
+        // System.out.println(book);
+        // booksRepository.save(book);
         return "redirect:/menu";
     }
 }

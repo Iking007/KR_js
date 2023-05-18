@@ -2,6 +2,9 @@ package com.example.serverBooksOnly.Model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.example.serverBooksOnly.Token.Token;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import jakarta.persistence.*;
@@ -31,8 +34,12 @@ public class User implements UserDetails{
     private String name;
     private String email;
 
+    //@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
 
     public User(String email, String password, Role role, String name) {
         this.active = true;
@@ -75,6 +82,6 @@ public class User implements UserDetails{
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return role.getAuthorities();
     }
 }
