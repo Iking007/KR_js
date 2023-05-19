@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
-import {Link, useLocation} from "react-router-dom";
-import axios, { formToJSON } from "axios";
+import {Link} from "react-router-dom";
+import axios from "axios";
 
 function Reg(){
     const [error, setError] = useState(false);
