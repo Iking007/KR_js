@@ -9,10 +9,10 @@ public enum Permission {
     ADMIN_UPDATE("admin:update"),
     ADMIN_CREATE("admin:create"),
     ADMIN_DELETE("admin:delete"),
-    MODER_READ("management:read"),
-    MODER_UPDATE("management:update"),
-    MODER_CREATE("management:create"),
-    MODER_DELETE("management:delete")
+    MODER_READ("moder:read"),
+    MODER_UPDATE("moder:update"),
+    MODER_CREATE("moder:create"),
+    MODER_DELETE("moder:delete")
 
     ;
 

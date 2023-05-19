@@ -9,6 +9,8 @@ import Login from "./elements/pages/Login";
 import AddBook from "./elements/pages/AddBook";
 import Authors from "./elements/pages/Authors";
 import Profile from "./elements/pages/Profile";
+import Favorites from "./elements/pages/Favorites";
+import Reg from "./elements/pages/Reg";
 
 function App() {
   return (
@@ -23,8 +25,10 @@ function App() {
         <Route path="/books/query" element={Query()}/>
         <Route path="/genres" element={Genres()}/>
         <Route path="/authors" element={Authors()}/>
+        <Route path="/reg" element={Reg()}/>
         <Route path="/login" element={Login()}/>
         <Route path="/prof" element={Profile()}/>
+        <Route path="/favorites" element={Favorites()}/>
         <Route path="/add/book" element={AddBook()}/>
       </Routes>
     </div>

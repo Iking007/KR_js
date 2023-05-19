@@ -15,18 +15,6 @@ function Books(){
             setPage(response.data);
           })
           .catch(error => {
-            if (error.response) {
-              // сервер ответил сообщением за пределами 2xx
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-            } else if (error.request) {
-              // запрос был выполнен, но нет ответа
-              console.log(error.request);
-            } else {
-              // что-то другое случилось
-              console.log('Error', error.message);
-            }
             console.log(error.config);
           })
     }

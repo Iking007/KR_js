@@ -3,20 +3,17 @@ package com.example.serverBooksOnly.Controller;
 import com.example.serverBooksOnly.Model.Author;
 import com.example.serverBooksOnly.Model.Book;
 import com.example.serverBooksOnly.Model.Genre;
-import com.example.serverBooksOnly.Model.Role;
-import com.example.serverBooksOnly.Model.User;
 import com.example.serverBooksOnly.Repository.AuthorRepository;
 import com.example.serverBooksOnly.Repository.BooksRepository;
 import com.example.serverBooksOnly.Repository.GenreRepository;
+import com.example.serverBooksOnly.Repository.UsersRepository;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +30,8 @@ public class IndexController{
     GenreRepository genreRepository;
     @Autowired
     AuthorRepository authorRepository;
+    @Autowired
+    UsersRepository usersRepository;
     int elInPage = 12; // Количество элементов на странице
 
     @GetMapping("/")
@@ -53,7 +52,7 @@ public class IndexController{
         // }
         return "index";
     }
-    
+
     @GetMapping("/allbooks")
     @CrossOrigin(origins = "*")
     public String books(){
@@ -174,10 +173,4 @@ public class IndexController{
         System.out.println(message);
         return message;
     }
-    
-    @GetMapping("/prof")
-    public String prof(){
-        
-        return "prof";
-    }
-    }
+}

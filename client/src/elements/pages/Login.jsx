@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import axios, { formToJSON } from "axios";
 
 
@@ -9,48 +9,33 @@ function Login(){
     const [password, setPassword] = useState([]);
     const [query, setQuery] = useState(false);
     const location = useLocation();
-    const params = new URLSearchParams(location.search);
-    const emailPar = params.get('email');
-    const passwordPar = params.get('password');
+    // const params = new URLSearchParams(location.search);
     //window.location.replace("/")
 
-    useEffect(() => {
-      async function postRequest(data = {}){
-        let config = {
-          method: 'post',
-          maxBodyLength: Infinity,
-          url: 'http://localhost:8080/login',
-          headers: { 
-            'Content-Type': 'application/json'
-          },
-          data: data
-        };
-        axios.request(config).then(response => {
-            console.log(response.data);
-            localStorage.token = response.data.token;
-            window.location.replace("/")
-            //console.log(response.data);
-          })
-          .catch(error => {
-            setError(true)
-            if (error.response) {
-              // сервер ответил сообщением за пределами 2xx
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-            } else if (error.request) {
-              // запрос был выполнен, но нет ответа
-              console.log(error.request);
-            } else {
-              // что-то другое случилось
-              console.log('Error', error.message);
-            }
-            console.log(error.config);
-          })
+    const post = (data = {}) => {
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:8080/login',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data: data
       };
-      if ("/login" == location.pathname.substring(0,6)){
-      postRequest({"email": emailPar, "password": passwordPar})};
-    },[query]);
+      axios.request(config).then(response => {
+          console.log(response.data);
+          localStorage.token = response.data.access_token;
+          window.location.replace("/prof")
+          //console.log(response.data);
+        })
+        .catch(error => {
+          setError(true)
+          console.log(error.config);
+        })
+    };
+      // if ("/login" == location.pathname.substring(0,6)){
+      // postRequest({"email": email, "password": password})};
+    // };
     return(
         <div>
           <form id='my_form'>
@@ -65,8 +50,9 @@ function Login(){
             </div>
             {error == true ? <p>Неверная почта или пароль</p>: null}
 
-            <button class="w-100 btn btn-lg btn-primary" onClick={() => setQuery(!query)}>Войти</button>
+            <Link class="w-100 btn btn-lg btn-primary" onClick={() => post({"email": email, "password": password})}>Войти</Link>
           </form>
+          <Link  to={"/reg"}>Зарегистрироваться</Link>
         </div>
     )
 }

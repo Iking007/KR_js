@@ -26,13 +26,24 @@ import lombok.NoArgsConstructor;
 @Table(name = "user_data")
 public class User implements UserDetails{
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @PrimaryKeyJoinColumn
     private Long id;
     private boolean active;
     
     private String password;
     private String name;
     private String email;
+
+    @ManyToMany (cascade = {
+        CascadeType.PERSIST,
+                CascadeType.MERGE
+    })
+    @JoinTable(name = "user_book",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
+    )
+    private Set<Book> favorites;
 
     //@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)

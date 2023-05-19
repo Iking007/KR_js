@@ -5,6 +5,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.server.reactive.HttpHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,11 +15,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.serverBooksOnly.Token.TokenRepository;
 
 import java.io.IOException;
+import java.util.Enumeration;
 @Component
 @RequiredArgsConstructor
 public class CsrfFilter extends OncePerRequestFilter {
@@ -28,6 +33,18 @@ public class CsrfFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "*");
+        response.setHeader("Access-Control-Allow-Headers", "Authorization");
+        Enumeration<String> headerNames = request.getHeaderNames();
+        // if (headerNames != null) {
+        //     while (headerNames.hasMoreElements()) {
+        //         String name = headerNames.nextElement();
+        //             System.out.println(name + ": " + request.getHeader(name));
+        //             System.out.println("Header: " + request.getHeader("Authorization"));
+        //             // System.out.println(name);
+        //     }
+        // }
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
