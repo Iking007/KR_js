@@ -31,7 +31,7 @@ function Profile(){
         postRequest()};
       },["/prof" == url ? true: false]);
 
-    const exit = () => { window.location.replace("/login"); localStorage.clear();}
+    const exit = () => { window.location.replace("/"); localStorage.clear();}
     return(
         <div>
             {page.name ? 

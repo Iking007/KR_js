@@ -16,6 +16,6 @@ public class AuthenticationResponse {
     private String accessToken;
     @JsonProperty("refresh_token")
     private String refreshToken;
-    @JsonProperty("refresh_token")
+    @JsonProperty("error")
     private String error;
 }

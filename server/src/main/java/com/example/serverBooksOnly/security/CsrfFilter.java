@@ -36,15 +36,6 @@ public class CsrfFilter extends OncePerRequestFilter {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "*");
         response.setHeader("Access-Control-Allow-Headers", "Authorization");
-        Enumeration<String> headerNames = request.getHeaderNames();
-        // if (headerNames != null) {
-        //     while (headerNames.hasMoreElements()) {
-        //         String name = headerNames.nextElement();
-        //             System.out.println(name + ": " + request.getHeader(name));
-        //             System.out.println("Header: " + request.getHeader("Authorization"));
-        //             // System.out.println(name);
-        //     }
-        // }
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;

@@ -50,7 +50,7 @@ function Reg(){
                 <input required type="password" name="password" class="form-control" value={password} onInput={e => setPassword(e.target.value)} id="floatingPassword" minlength="8" placeholder="Password"/>
                 <label for="floatingPassword">Пароль</label>
             </div>
-            {error == true ? <p>Ошибка регистрации</p>: null}
+            {error == true ? <p>Ошибка регистрации, вероятно такой пользоватеть уже существует</p>: null}
             <Link class="w-100 btn btn-lg btn-primary" onClick={() =>post({'name': name, "email": email, "password": password})}>Зарегистрироваться</Link>
         </form>
     </div>

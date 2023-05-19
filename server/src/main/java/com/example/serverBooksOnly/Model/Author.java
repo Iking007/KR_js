@@ -13,10 +13,10 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;///< Идентификатор автора
 
-    private String surname_author;///< Фамилия автора
-    private String name_author;///< Имя автора
-    private String middle_name_author;///< Отчество/второе имя автора
+    private String surname;///< Фамилия автора
+    private String name;///< Имя автора
+    private String middle_name;///< Отчество/второе имя автора
     private Date date_of_birth;///< Дата рождения автора 
     @Column(columnDefinition="text")
-    private String description_author;///< Краткая биография автора
+    private String description;///< Краткая биография автора
 }
