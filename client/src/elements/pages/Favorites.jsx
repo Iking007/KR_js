@@ -10,7 +10,7 @@ function Favorites(){
     const url = location.pathname;
 
     useEffect(() => {
-        console.log(localStorage.getItem('token'))
+        //console.log(localStorage.getItem('token'))
         async function postRequest(){
           let config = {
             headers: { 

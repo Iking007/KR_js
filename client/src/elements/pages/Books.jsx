@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import axios from 'axios'
 import "./css/books.css"
 import noImg from "./images/no.png"
@@ -7,6 +7,8 @@ import noImg from "./images/no.png"
 function Books(){
     const [page, setPage] = useState([]);
     const [numPage, setNumPage] = useState(1);
+    const location = useLocation();
+    const url = location.pathname;
 
 
     useEffect(() => {
@@ -19,7 +21,7 @@ function Books(){
           })
     }
     fetchData();
-    },[numPage]);
+    },[numPage, "/books" == url ? true: false]);
     return(
         <div>
             {page.books ? 

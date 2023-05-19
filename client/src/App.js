@@ -11,6 +11,8 @@ import Authors from "./elements/pages/Authors";
 import Profile from "./elements/pages/Profile";
 import Favorites from "./elements/pages/Favorites";
 import Reg from "./elements/pages/Reg";
+import AddAuthor from "./elements/pages/AddAuthor";
+import AddGenre from "./elements/pages/AddGenre";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
         <Route path="/prof" element={Profile()}/>
         <Route path="/favorites" element={Favorites()}/>
         <Route path="/add/book" element={AddBook()}/>
+        <Route path="/add/author" element={AddAuthor()}/>
+        <Route path="/add/genre" element={AddGenre()}/>
       </Routes>
     </div>
   );

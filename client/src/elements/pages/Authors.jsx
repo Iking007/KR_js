@@ -41,7 +41,7 @@ function Authors(){
                 <div>
                     {page.authors.map(author => (
                     <Link to={`/books/query?author=${author.id}&page=1`}>
-                        <h3>{author.name_author}</h3>
+                        <h3>{author.name}</h3>
                     </Link>
                     ))}
                 </div>

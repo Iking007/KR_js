@@ -1,10 +1,16 @@
 package com.example.serverBooksOnly.Model;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import jakarta.persistence.*;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,23 +27,20 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "id_genre")
     private Genre genre; ///< Идентификатор жанра книги
+    
 
-    public Book() {
-    }
-
-    public Book(String title, String str, Author author, Genre genre) {
-        this.title = title;
-        this.str = str;
-        this.author = author;
-        this.genre = genre;
-        /**
-         * \todo Дописать, когда будет добавлена таблица писателей: this.id_author = (long) 0; this.id_genre = (long) 0;
-         */
-    }
-    public Book(String title, String str) {
-        this.title = title;
-        this.str = str;
-    }
+    // public Book(String title, Author author, Genre genre, String img, String download, String str) {
+    //     this.title = title;
+    //     this.str = str;
+    //     this.author = author;
+    //     this.genre = genre;
+    //     this.img = img;
+    //     this.download = download;
+    // }
+    // public Book(String title, String str) {
+    //     this.title = title;
+    //     this.str = str;
+    // }
 }
 
 

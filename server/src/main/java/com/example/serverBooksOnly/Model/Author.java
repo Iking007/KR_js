@@ -1,5 +1,9 @@
 package com.example.serverBooksOnly.Model;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.Date;
 
 import jakarta.persistence.*;
@@ -8,6 +12,9 @@ import jakarta.persistence.*;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

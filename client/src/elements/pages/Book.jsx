@@ -43,16 +43,17 @@ function Book(){
               {book.book.map( book =>
               <div>
                 <div class="pricing-header p-3 pb-md-4 mx-auto text-justify">
+                  <h5 class="display-4 text-center">{book.title}</h5>
                   {book.img ? (<img src={book.img} alt="Тут должна быть картинка, но её нет"/>): 
                     (<img src={noImg}  alt="Тут должна быть картинка, но её нет"/>)
                   }
-                  <h1 class="display-4 text-center">{book.title}</h1>
-                  <p class="fs-5 text-muted"></p>
+                  
+                  <p class="fs-5 text-muted">{book.str}</p>
                 </div>
                 <div class="pricing-header p-3 pb-md-4 mx-auto text-justify">
                   {book.download != null ? <Link class="btn btn-success" to={`/update/${book.id}`}>Скачать</Link>: null}
-                  <p class="fs-5 text-muted mb-5" >Жанр: {book.genre.name}</p>
-                  <p class="fs-5 text-muted mb-5" >Книгу написал: {book.author.name}</p>
+                  <p class="fs-5 text-muted mb-5" >Жанр: {book.genre? book.genre.name: "Не указан"}</p>
+                  <p class="fs-5 text-muted mb-5" >Книгу написал: {book.author ? book.author.name: "Не указано"}</p>
                   {(localStorage.role == "MODER" || localStorage.role == "ADMIN") ? <Link class="btn btn-success" to={`/update/${book.id}`}>Редактировать</Link>: null}
                 </div>
               </div>

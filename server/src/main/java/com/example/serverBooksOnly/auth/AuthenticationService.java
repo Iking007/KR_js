@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.example.serverBooksOnly.Model.Role;
 import com.example.serverBooksOnly.Model.User;
 import com.example.serverBooksOnly.Repository.UsersRepository;
+import com.example.serverBooksOnly.Requests.AuthenticationRequest;
+import com.example.serverBooksOnly.Requests.RegisterRequest;
 import com.example.serverBooksOnly.Token.Token;
 import com.example.serverBooksOnly.Token.TokenRepository;
 import com.example.serverBooksOnly.Token.TokenType;

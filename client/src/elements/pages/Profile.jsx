@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {Link,useLocation} from "react-router-dom";
 import axios from "axios";
+import "../blooks/header.css";
 
 function Profile(){
     const [page, setPage] = useState(false);
@@ -9,7 +10,7 @@ function Profile(){
     //const params = new URLSearchParams(location.search);
 
     useEffect(() => {
-        console.log(localStorage.getItem('token'))
+        //console.log(localStorage.getItem('token'))
         async function postRequest(){
           let config = {
             headers: { 
@@ -40,7 +41,11 @@ function Profile(){
                     <h2>{page.name}</h2>
                     <h3>Ваша роль: {page.role}</h3>
                     {page.role == "ADMIN" || page.role == "MODER" ? 
-                      <Link to="/add/book">Добавить книгу</Link>: 
+                      (<>
+                        <Link to="/add/genre" class="my_button">Добавить Жанр</Link>
+                        <Link to="/add/author" class="my_button">Добавить Автора</Link>
+                        <Link to="/add/book" class="my_button">Добавить Книгу</Link>
+                      </>): 
                       null
                     }
                 </div>

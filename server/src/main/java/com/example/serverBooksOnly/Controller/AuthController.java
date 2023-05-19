@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.serverBooksOnly.Model.User;
 import com.example.serverBooksOnly.Repository.UsersRepository;
+import com.example.serverBooksOnly.Requests.AuthenticationRequest;
+import com.example.serverBooksOnly.Requests.RegisterRequest;
 import com.example.serverBooksOnly.Token.TokenRepository;
-import com.example.serverBooksOnly.auth.AuthenticationRequest;
 import com.example.serverBooksOnly.auth.AuthenticationResponse;
 import com.example.serverBooksOnly.auth.AuthenticationService;
-import com.example.serverBooksOnly.auth.RegisterRequest;
 
 @RestController
 @RequiredArgsConstructor

@@ -1,0 +1,8 @@
+.my-genre{
+    margin-bottom: 1vh;
+    cursor: pointer;
+}
+.my-genre * {
+    display: flex;
+    flex-wrap: wrap; 
+}
