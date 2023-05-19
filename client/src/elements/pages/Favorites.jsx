@@ -19,7 +19,7 @@ function Favorites(){
           };
           axios.get('http://localhost:8080/favorites',config).then(response => {
               console.log(response.data);
-              localStorage.role = response.data.role;
+            //   localStorage.role = response.data.role;
               setPage(response.data);
               //window.location.replace("/")
               //console.log(response.data);
@@ -28,16 +28,15 @@ function Favorites(){
               console.log(error.config);
             })
         };
-        if ("/prof" == location.pathname){
+        if ("/favorites" == url){
         postRequest()};
-      },["/prof" == url ? true: false]);
+      },["/favorites" == url ? true: false]);
 
     return(
         <div>
             {localStorage.token != null ?
                 (
                     <div>
-                    <h1>Favorites</h1>
                     {page.books ? 
                         (
                             <div class="my-row">

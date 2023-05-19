@@ -45,6 +45,13 @@ public class User implements UserDetails{
     )
     private Set<Book> favorites;
 
+    public void addFavorite(Book book){
+        favorites.add(book);
+    }
+    public void delFavorite(Book book){
+        favorites.remove(book);
+    }
+
     //@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Role role;
