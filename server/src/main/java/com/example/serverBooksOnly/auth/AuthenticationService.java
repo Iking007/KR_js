@@ -33,6 +33,11 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        if (repository.findByEmail(request.getEmail()).isPresent()){
+                return AuthenticationResponse.builder()
+                      .error("Email already exists")
+                      .build();
+        }
         Role role = Role.USER;
         if (request.getRole() != null) {role = request.getRole();}
         var savedUser = User.builder()

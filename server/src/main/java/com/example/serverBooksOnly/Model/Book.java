@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Data
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;///< Идентификатор книги 
     
     private String title;///< Название книги

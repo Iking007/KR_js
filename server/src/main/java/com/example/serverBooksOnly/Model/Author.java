@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 @Data
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;///< Идентификатор автора
 
     private String surname_author;///< Фамилия автора

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.serverBooksOnly.Model.User;
+import com.example.serverBooksOnly.Repository.UsersRepository;
 import com.example.serverBooksOnly.Token.TokenRepository;
 import com.example.serverBooksOnly.auth.AuthenticationRequest;
 import com.example.serverBooksOnly.auth.AuthenticationResponse;
@@ -27,12 +28,17 @@ public class AuthController {
 
     @Autowired
     TokenRepository tokenRepository;
+    @Autowired
+    UsersRepository usersRepository;
 
     @PostMapping("/reg")
     @CrossOrigin(origins = "*")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ){
+        if (usersRepository.findByEmail(request.getEmail()).isPresent()){
+            return ResponseEntity.badRequest().body(null);
+        }
         return ResponseEntity.ok(service.register(request));
     }
 
