@@ -22,7 +22,7 @@ function Reg(){
         data: data
       };
       axios.request(config).then(response => {
-            console.log(response.data);
+            //console.log(response.data);
             localStorage.token = response.data.access_token;
             window.location.replace("/prof");
           //console.log(response.data);

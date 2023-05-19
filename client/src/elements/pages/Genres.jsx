@@ -11,29 +11,19 @@ function Genres(){
 
 
     useEffect(() => {
+    let controller = new AbortController();
     async function fetchData(url) {
-      console.log(url);
+      //console.log(url);
       await axios.get("http://localhost:8080" + url).then(response => {
           setPage(response.data);
         })
         .catch(error => {
-          if (error.response) {
-            // сервер ответил сообщением за пределами 2xx
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            // запрос был выполнен, но нет ответа
-            console.log(error.request);
-          } else {
-            // что-то другое случилось
-            console.log('Error', error.message);
-          }
           console.log(error.config);
         })
     }
     if ("/genres" == url) {
     fetchData(url)};
+    return() => controller.abort
     },["/genres" == url ? true: false, query]);
     
     const del = (id) => {

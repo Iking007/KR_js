@@ -10,7 +10,7 @@ function Authors(){
 
     useEffect(() => {
     async function fetchData(url) {
-      console.log(url);
+      //console.log(url);
       await axios.get("http://localhost:8080" + url).then(response => {
           setPage(response.data);
           //console.log(url);

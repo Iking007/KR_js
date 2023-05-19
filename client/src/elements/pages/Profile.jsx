@@ -10,6 +10,7 @@ function Profile(){
     //const params = new URLSearchParams(location.search);
 
     useEffect(() => {
+      let controller = new AbortController();
         //console.log(localStorage.getItem('token'))
         async function postRequest(){
           let config = {
@@ -18,7 +19,7 @@ function Profile(){
             }
           };
           axios.get('http://localhost:8080/prof',config).then(response => {
-              console.log(response.data);
+              //console.log(response.data);
               localStorage.role = response.data.role;
               setPage(response.data);
               //window.location.replace("/")
@@ -30,6 +31,7 @@ function Profile(){
         };
         if ("/prof" == location.pathname){
         postRequest()};
+        return controller.abort();
       },["/prof" == url ? true: false]);
 
     const exit = () => { window.location.replace("/"); localStorage.clear();}

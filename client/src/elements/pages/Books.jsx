@@ -13,12 +13,14 @@ function Books(){
 
     useEffect(() => {
     async function fetchData() {
+        let controller = new AbortController();
         await axios.get("http://localhost:8080/books/" + numPage).then(response => {
             setPage(response.data);
           })
           .catch(error => {
             console.log(error.config);
           })
+        return controller.abort();
     }
     fetchData();
     },[numPage, "/books" == url ? true: false]);
