@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {Link, useLocation} from "react-router-dom";
 import axios from 'axios'
+import "./css/authors.css";
 
 function Authors(){
     const [page, setPage] = useState([]);
@@ -16,35 +17,49 @@ function Authors(){
           //console.log(url);
         })
         .catch(error => {
-          if (error.response) {
-            // сервер ответил сообщением за пределами 2xx
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            // запрос был выполнен, но нет ответа
-            console.log(error.request);
-          } else {
-            // что-то другое случилось
-            console.log('Error', error.message);
-          }
           console.log(error.config);
         })
     }
     if ("/authors" == url){
     fetchData(url)};
     },["/authors" == url ? true: false]);
+
+    const del = (id) => {
+      console.log(id);
+      let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `http://localhost:8080/delauthor?author_id=${id}`,
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      };
+      axios.request(config).then(response => {
+        setPage(response.data);
+        })
+        .catch(error => {
+          console.log(error.config);
+        })
+    };
+
     return(
         <div>
         {page.authors ? 
             (
-                <div>
-                    {page.authors.map(author => (
-                    <Link to={`/books/query?author=${author.id}&page=1`}>
-                        <h3>{author.name}</h3>
-                    </Link>
-                    ))}
+              <div>
+                {localStorage.role == "ADMIN" ? <h4>При удалении удалятся и все книги Автора</h4>: null}
+                <div class="my-author"> 
+                  {page.authors.map(author => (
+                    <div class="my-author">
+                      <Link to={`/books/query?author=${author.id}&page=1`}>
+                          <h3>{author.name}</h3>
+                      </Link>
+                      {localStorage.role == "ADMIN" ? <div onClick={() => del(author.id)}>❌</div>: null}
+                    </div>
+                  ))}
                 </div>
+              </div>
             ): 
             (
                 <>Loading...</>

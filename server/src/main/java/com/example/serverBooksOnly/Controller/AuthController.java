@@ -1,21 +1,22 @@
 package com.example.serverBooksOnly.Controller;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.serverBooksOnly.Model.Book;
@@ -28,6 +29,8 @@ import com.example.serverBooksOnly.Requests.RegisterRequest;
 import com.example.serverBooksOnly.Token.TokenRepository;
 import com.example.serverBooksOnly.auth.AuthenticationResponse;
 import com.example.serverBooksOnly.auth.AuthenticationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequiredArgsConstructor
@@ -80,21 +83,37 @@ public class AuthController {
     @CrossOrigin(origins = "*")
     public String favorites(@RequestHeader("Authorization") String token){
         JSONObject json = new JSONObject();
+        
+        // JSONArray arrayFavotites = new JSONArray();
+        JSONArray array = new JSONArray();
         String message;
         token = token.substring(7,token.length());
         User user = tokenRepository.findByToken(token).get().getUser();
-        System.out.println(user.getFavorites());
-        json.put("books", user.getFavorites());
+        for (int i = 0; i < user.getFavorites().size(); i++){
+            JSONObject jsonBook = new JSONObject();
+            Book book = user.getFavorites().get(i);
+            jsonBook.put("id", book.getId());
+            jsonBook.put("title", book.getTitle());
+            // jsonBook.put("author", book.getAuthor());
+            // jsonBook.put("genre", book.getGenre());
+            jsonBook.put("img", book.getImg());
+            jsonBook.put("download", book.getDownload());
+            array.put(jsonBook);
+            System.out.println(array.toString());
+        }
+        json.put("books", array);
         message = json.toString();
+        System.out.println(message);
         return message;
     }
 
     @PostMapping("/newfavorite")
     @CrossOrigin(origins = "*")
     public void newfavorites(@RequestHeader("Authorization") String token, @RequestBody FavoriteRequest request){
+        System.out.println(request.toString());
         token = token.substring(7,token.length());
         User user = tokenRepository.findByToken(token).get().getUser();
-        user.addFavorite(booksRepository.findById(request.getBook_id()).get());
+        user.addFavorite(booksRepository.findById(request.getBook_id().longValue()));
         usersRepository.save(user);
         return;
     }
@@ -103,21 +122,30 @@ public class AuthController {
     public void delfavorites(@RequestHeader("Authorization") String token, @RequestBody FavoriteRequest request){
         token = token.substring(7,token.length());
         User user = tokenRepository.findByToken(token).get().getUser();
-        user.delFavorite(booksRepository.findById(request.getBook_id()).get());
+        user.delFavorite(booksRepository.findById(request.getBook_id().longValue()));
         usersRepository.save(user);
         return;
     }
 
     @GetMapping("/auth/book/{id}")
     @CrossOrigin(origins = "*")
-    public String bookId(@PathVariable(value = "id") long id, @RequestHeader("Authorization") String token){
-        List<Book> book = booksRepository.findById(id);
+    public String bookId(@PathVariable(value = "id") long id, @RequestHeader("Authorization") String token) throws JsonProcessingException, JSONException{
+        Book book = booksRepository.findById(id);
         JSONObject json = new JSONObject();
+        JSONObject jsonBook = new JSONObject();
         String message = "";        
         token = token.substring(7,token.length());
         User user = tokenRepository.findByToken(token).get().getUser();
         // user.getFavorites().contains(book);
-        json.put("book", book.toArray());
+        jsonBook.put("id", book.getId());
+        jsonBook.put("title", book.getTitle());
+        ObjectMapper mapper = new ObjectMapper();
+        jsonBook.put("author", new JSONObject(mapper.writeValueAsString(book.getAuthor())));
+        jsonBook.put("genre",  new JSONObject(mapper.writeValueAsString(book.getGenre())));
+        jsonBook.put("img", book.getImg());
+        jsonBook.put("download", book.getDownload());
+        jsonBook.put("str", book.getStr());
+        json.put("book", jsonBook);
         Iterator<Book> favorites = user.getFavorites().iterator();
         while(favorites.hasNext()){
             //json.put("favorite", true);
@@ -130,7 +158,7 @@ public class AuthController {
         
         message = json.toString();
        
-        //System.out.println(message);
+        System.out.println(message);
         return message;
     }
 }

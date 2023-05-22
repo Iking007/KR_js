@@ -1,7 +1,5 @@
 package com.example.serverBooksOnly.Model;
 
-
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

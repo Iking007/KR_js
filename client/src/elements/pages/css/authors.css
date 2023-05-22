@@ -1,0 +1,15 @@
+.my-author{
+    margin-bottom: 1vh;
+    cursor: pointer;
+}
+.my-author * {
+    display: flex;
+    flex-wrap: wrap; 
+}
+img {
+    float: left;
+}
+.p-end{
+    clear: left;
+    display: block;
+}

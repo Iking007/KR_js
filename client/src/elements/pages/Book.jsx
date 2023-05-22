@@ -6,6 +6,7 @@ import noImg from "./images/no.png"
 
 function Book(){
     const [book, setBook] = useState([]);
+    const [page, setPage] = useState([]);
     const [favorite, setFavorite] = useState(true);
     const location = useLocation();
     const url = location.pathname;
@@ -36,7 +37,8 @@ function Book(){
       if (localStorage.token != null) {config = configAuth};
       axios.request(config).then(response => {
           console.log(response.data);
-          setBook(response.data)
+          setPage(response.data)
+          setBook(response.data.book)
           setFavorite(response.data.favorite)
         })
         .catch(error => {
@@ -50,7 +52,6 @@ function Book(){
 
     const post = (data = {}) => {
       let controller = new AbortController();
-      setFavorite(true)
       console.log(data);
       let config = {
         method: 'post',
@@ -64,6 +65,7 @@ function Book(){
       };
       axios.request(config).then(response => {
           console.log(response.data);
+          setFavorite(true)
           //window.location.replace("/prof")
           //console.log(response.data);
         })
@@ -75,7 +77,6 @@ function Book(){
 
     const post2 = (data = {}) => {
       let controller = new AbortController();
-      setFavorite(false)
       console.log(data);
       let config = {
         method: 'post',
@@ -89,6 +90,7 @@ function Book(){
       };
       axios.request(config).then(response => {
           console.log(response.data);
+          setFavorite(false)
           //window.location.replace("/prof")
           //console.log(response.data);
         })
@@ -97,41 +99,60 @@ function Book(){
         })
         controller.abort()
     };
+    const del = (id) => {
+      let controller = new AbortController();
+      let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `http://localhost:8080/delbook?book_id=${id}`,
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+      };
+      axios.request(config).then(response => {
+          window.location.reload("/")
+        })
+        .catch(error => {
+          console.log(error.config);
+        })
+        controller.abort()
+    };
     return(
       <div>
-        {book.book ? 
+        {page.book ? 
           ( 
             <div>
-              {book.book.map( book =>
+              
               <div>
                 <div class="pricing-header p-3 pb-md-4 mx-auto text-justify">
                   <h5 class="display-4 text-center">{book.title}</h5>
                   {book.img ? (<img src={book.img} alt="Тут должна быть картинка, но её нет"/>): 
-                    (<img src={noImg}  alt="Тут должна быть картинка, но её нет"/>)
+                    (<img src={noImg} alt="Тут должна быть картинка, но её нет"/>)
                   }
-                  
-                  <p class="fs-5 text-muted">{book.str}</p>
+                  <p class="fs-5 text-muted p-1">{book.str}</p>
                 </div>
-                <div class="pricing-header p-3 pb-md-4 mx-auto text-justify">
-                  {book.download != null ? <Link class="btn btn-success" to={`/update/${book.id}`}>Скачать</Link>: null}
-                  <p class="fs-5 text-muted mb-5" >Жанр: {book.genre? book.genre.name: "Не указан"}</p>
-                  <p class="fs-5 text-muted mb-5" >Книгу написал: {book.author ? book.author.name: "Не указано"}</p>
-                  {(localStorage.role == "MODER" || localStorage.role == "ADMIN") ? <Link class="btn btn-success" to={`/update/${book.id}`}>Редактировать</Link>: null}
+                <div class="pricing-header p-3 pb-md-4 mx-auto text-justify p-end">
+                  {book.download != null ? <a class="btn btn-success" to={`${book.download}`}>Скачать</a>: null}
+                  <p class="fs-5 text-muted mb-1" >Жанр: {book.genre? book.genre.name: "Не указан"}</p>
+                  <p class="fs-5 text-muted mb-1" >Книгу написал: {book.author ? book.author.name: "Не указано"}</p>
+                  {(localStorage.role == "MODER" || localStorage.role == "ADMIN") ? (<Link class="btn btn-success" to={`/update/${book.id}`}>Редактировать</Link>): null}<br/>
+                  {
+                    localStorage.role != null ? 
+                    <button type='button' class="btn btn-success my-sm-3" onClick={() => del(book.id)}>Удалить</button>: null
+                  }<br/>
+                  {
+                    localStorage.token != null && !page.favorite && !favorite ? 
+                    <button type='button' class="btn btn-success my-sm-3" onClick={() => post({'book_id': book.id})}>Добавить в избранное</button>: null
+                  }
+                  {
+                    localStorage.token != null && page.favorite && favorite ? 
+                    <button type='button' class="btn btn-success my-sm-3" onClick={() => post2({'book_id': book.id})}>Удалить из избранного</button>: null
+                  }
                 </div>
               </div>
-              )}
-              {
-                localStorage.token != null && !book.favorite && !favorite ? 
-                <div> 
-                  {book.book.map( book => <button type='button' onClick={() => post({'book_id': book.id})}>Добавить в избранное</button>)}
-                </div>: null
-              }
-              {
-                localStorage.token != null && book.favorite && favorite ? 
-                <div> 
-                  {book.book.map( book => <button type='button' onClick={() => post2({'book_id': book.id})}>Удалить из избранного</button>)}
-                </div>: null
-              }
+              
+              
             </div>
           ): 
           (

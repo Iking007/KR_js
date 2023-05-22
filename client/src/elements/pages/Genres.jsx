@@ -5,7 +5,6 @@ import "./css/genres.css"
 
 function Genres(){
     const [page, setPage] = useState([]);
-    const [query, setQuery] = useState(false);
     const location = useLocation();
     const url = location.pathname;
 
@@ -24,7 +23,7 @@ function Genres(){
     if ("/genres" == url) {
     fetchData(url)};
     return() => controller.abort
-    },["/genres" == url ? true: false, query]);
+    },["/genres" == url ? true: false]);
     
     const del = (id) => {
       console.log(id);
@@ -38,11 +37,11 @@ function Genres(){
         }
       };
       axios.request(config).then(response => {
+        setPage(response.data);
         })
         .catch(error => {
           console.log(error.config);
         })
-      setQuery(!query);
     };
     return(
         <div>

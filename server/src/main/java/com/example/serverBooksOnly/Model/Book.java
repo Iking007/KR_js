@@ -4,6 +4,9 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
+import java.util.List;
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -27,20 +30,9 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "id_genre")
     private Genre genre; ///< Идентификатор жанра книги
-    
 
-    // public Book(String title, Author author, Genre genre, String img, String download, String str) {
-    //     this.title = title;
-    //     this.str = str;
-    //     this.author = author;
-    //     this.genre = genre;
-    //     this.img = img;
-    //     this.download = download;
-    // }
-    // public Book(String title, String str) {
-    //     this.title = title;
-    //     this.str = str;
-    // }
+    @ManyToMany(mappedBy = "favorites")
+    private List<User> users;
 }
 
 

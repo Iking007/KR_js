@@ -7,11 +7,15 @@ import com.example.serverBooksOnly.Repository.AuthorRepository;
 import com.example.serverBooksOnly.Repository.BooksRepository;
 import com.example.serverBooksOnly.Repository.GenreRepository;
 import com.example.serverBooksOnly.Repository.UsersRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
-
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,19 +41,6 @@ public class IndexController{
     @GetMapping("/")
     @CrossOrigin(origins = "*")
     public String index(){
-        // model.addAttribute("namePage", "Главная");
-        // if(user == null){
-        //     model.addAttribute("pr", null);
-        // }
-        // else if( Objects.equals(user.getRole(), Collections.singleton(Role.USER))){
-        //     model.addAttribute("pr", 0);
-        // }
-        // else if(!Objects.equals(user.getRole(), Collections.singleton(Role.ADMIN))){
-        //     model.addAttribute("pr", 1);
-        // }
-        // else {
-        //     model.addAttribute("pr", 2);
-        // }
         return "index";
     }
 
@@ -78,13 +69,49 @@ public class IndexController{
             List<Book> books = booksRepository.searchByTitle(filter);
             if (books.size() != 0){
                 json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
-                json.put("books", books);
+                // JSONArray arrayFavotites = new JSONArray();
+                JSONArray array = new JSONArray();
+                List<Book> pageBooks = books.subList(elInPage*page-elInPage, ((books.size() <= elInPage*page) ? books.size() : elInPage*page));
+                json.put("page", page);
+                json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
+                for (Book book : pageBooks){
+                    JSONObject jsonBook = new JSONObject();
+                    // Book book = pageBooks.;
+                    jsonBook.put("id", book.getId());
+                    jsonBook.put("title", book.getTitle());
+                    // jsonBook.put("author", book.getAuthor());
+                    // jsonBook.put("genre", book.getGenre());
+                    jsonBook.put("img", book.getImg());
+                    jsonBook.put("download", book.getDownload());
+                    array.put(jsonBook);
+                    // jsonBook.clear();
+                    System.out.println(array.toString());
+                }
+                json.put("books", array);
                 message = json.toString();
             }
             else{
                 books = booksRepository.findAll();
                 json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
-                json.put("books", books);
+                // JSONArray arrayFavotites = new JSONArray();
+                JSONArray array = new JSONArray();
+                List<Book> pageBooks = books.subList(elInPage*page-elInPage, ((books.size() <= elInPage*page) ? books.size() : elInPage*page));
+                json.put("page", page);
+                json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
+                for (Book book : pageBooks){
+                    JSONObject jsonBook = new JSONObject();
+                    // Book book = pageBooks.;
+                    jsonBook.put("id", book.getId());
+                    jsonBook.put("title", book.getTitle());
+                    // jsonBook.put("author", book.getAuthor());
+                    // jsonBook.put("genre", book.getGenre());
+                    jsonBook.put("img", book.getImg());
+                    jsonBook.put("download", book.getDownload());
+                    array.put(jsonBook);
+                    // jsonBook.clear();
+                    System.out.println(array.toString());
+                }
+                json.put("books", array);
                 json.put("query", "false");
                 message = json.toString();
             }
@@ -93,13 +120,49 @@ public class IndexController{
             List<Book> books = booksRepository.searchByGenre(genreRepository.findById(genre_id.longValue()));
                 if (books.size() != 0){
                 json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
-                json.put("books", books);
+                // JSONArray arrayFavotites = new JSONArray();
+                JSONArray array = new JSONArray();
+                List<Book> pageBooks = books.subList(elInPage*page-elInPage, ((books.size() <= elInPage*page) ? books.size() : elInPage*page));
+                json.put("page", page);
+                json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
+                for (Book book : pageBooks){
+                    JSONObject jsonBook = new JSONObject();
+                    // Book book = pageBooks.;
+                    jsonBook.put("id", book.getId());
+                    jsonBook.put("title", book.getTitle());
+                    // jsonBook.put("author", book.getAuthor());
+                    // jsonBook.put("genre", book.getGenre());
+                    jsonBook.put("img", book.getImg());
+                    jsonBook.put("download", book.getDownload());
+                    array.put(jsonBook);
+                    // jsonBook.clear();
+                    System.out.println(array.toString());
+                }
+                json.put("books", array);
                 message = json.toString();
             }
             else{
                 books = booksRepository.findAll();
                 json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
-                json.put("books", books);
+                // JSONArray arrayFavotites = new JSONArray();
+                JSONArray array = new JSONArray();
+                List<Book> pageBooks = books.subList(elInPage*page-elInPage, ((books.size() <= elInPage*page) ? books.size() : elInPage*page));
+                json.put("page", page);
+                json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
+                for (Book book : pageBooks){
+                    JSONObject jsonBook = new JSONObject();
+                    // Book book = pageBooks.;
+                    jsonBook.put("id", book.getId());
+                    jsonBook.put("title", book.getTitle());
+                    // jsonBook.put("author", book.getAuthor());
+                    // jsonBook.put("genre", book.getGenre());
+                    jsonBook.put("img", book.getImg());
+                    jsonBook.put("download", book.getDownload());
+                    array.put(jsonBook);
+                    // jsonBook.clear();
+                    System.out.println(array.toString());
+                }
+                json.put("books", array);
                 json.put("query", "false");
                 message = json.toString();
             }
@@ -109,13 +172,50 @@ public class IndexController{
             json.put("page", page);
             if (books.size() != 0){
                 json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
-                json.put("books", books);
+                // JSONArray arrayFavotites = new JSONArray();
+                JSONArray array = new JSONArray();
+                List<Book> pageBooks = books.subList(elInPage*page-elInPage, ((books.size() <= elInPage*page) ? books.size() : elInPage*page));
+                json.put("page", page);
+                json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
+                for (Book book : pageBooks){
+                    JSONObject jsonBook = new JSONObject();
+                    // Book book = pageBooks.;
+                    jsonBook.put("id", book.getId());
+                    jsonBook.put("title", book.getTitle());
+                    // jsonBook.put("author", book.getAuthor());
+                    // jsonBook.put("genre", book.getGenre());
+                    jsonBook.put("img", book.getImg());
+                    jsonBook.put("download", book.getDownload());
+                    array.put(jsonBook);
+                    // jsonBook.clear();
+                    System.out.println(array.toString());
+                }
+                json.put("books", array);
                 message = json.toString();
             }
             else{
                 books = booksRepository.findAll();
                 json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
-                json.put("books", books);
+                
+                // JSONArray arrayFavotites = new JSONArray();
+                JSONArray array = new JSONArray();
+                List<Book> pageBooks = books.subList(elInPage*page-elInPage, ((books.size() <= elInPage*page) ? books.size() : elInPage*page));
+                json.put("page", page);
+                json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
+                for (Book book : pageBooks){
+                    JSONObject jsonBook = new JSONObject();
+                    // Book book = pageBooks.;
+                    jsonBook.put("id", book.getId());
+                    jsonBook.put("title", book.getTitle());
+                    // jsonBook.put("author", book.getAuthor());
+                    // jsonBook.put("genre", book.getGenre());
+                    jsonBook.put("img", book.getImg());
+                    jsonBook.put("download", book.getDownload());
+                    array.put(jsonBook);
+                    // jsonBook.clear();
+                    System.out.println(array.toString());
+                }
+                json.put("books", array);
                 json.put("query", "false");
                 message = json.toString();
             }
@@ -130,9 +230,26 @@ public class IndexController{
         List<Book> books = booksRepository.findAll();
         String message;
         JSONObject json = new JSONObject();
+        // JSONObject jsonBook = new JSONObject();
+        // JSONArray arrayFavotites = new JSONArray();
+        JSONArray array = new JSONArray();
+        List<Book> pageBooks = books.subList(elInPage*id-elInPage, ((books.size() <= elInPage*id) ? books.size() : elInPage*id));
         json.put("page", id);
         json.put("maxPage", ((books.size()%elInPage == 0 )? books.size()/elInPage : books.size()/elInPage + 1));
-        json.put("books", Arrays.copyOfRange(books.toArray(), elInPage*id-elInPage, ((books.size() <= elInPage*id) ? books.size() : elInPage*id)));
+        for (Book book : pageBooks){
+            JSONObject jsonBook = new JSONObject();
+            // Book book = pageBooks.;
+            jsonBook.put("id", book.getId());
+            jsonBook.put("title", book.getTitle());
+            // jsonBook.put("author", book.getAuthor());
+            // jsonBook.put("genre", book.getGenre());
+            jsonBook.put("img", book.getImg());
+            jsonBook.put("download", book.getDownload());
+            array.put(jsonBook);
+            // jsonBook.clear();
+            System.out.println(array.toString());
+        }
+        json.put("books", array);
         message = json.toString();
         //System.out.println(message);
         return message;
@@ -140,13 +257,21 @@ public class IndexController{
     
     @GetMapping("/book/{id}")
     @CrossOrigin(origins = "*")
-    public String bookId(@PathVariable(value = "id") long id){
-        List<Book> book = booksRepository.findById(id);
+    public String bookId(@PathVariable(value = "id") long id) throws JsonProcessingException, JSONException{
+        Book book = booksRepository.findById(id);
         String message;
         JSONObject json = new JSONObject();
-        json.put("book", book.toArray());
+        JSONObject jsonBook = new JSONObject();
+        jsonBook.put("id", book.getId());
+        jsonBook.put("title", book.getTitle());
+        ObjectMapper mapper = new ObjectMapper();
+        jsonBook.put("author", new JSONObject(mapper.writeValueAsString(book.getAuthor())));
+        jsonBook.put("genre",  new JSONObject(mapper.writeValueAsString(book.getGenre())));
+        jsonBook.put("img", book.getImg());
+        jsonBook.put("download", book.getDownload());
+        json.put("book", jsonBook);
         message = json.toString();
-        //System.out.println(message);
+        System.out.println(message);
         return message;
     }
     

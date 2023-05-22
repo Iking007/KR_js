@@ -15,9 +15,10 @@ import java.util.List;
 public interface BooksRepository extends JpaRepository<Book, Long> {
 
     List<Book> findAll();
-    List<Book> findById(long id);
+    Book findById(long id);
     List<Book> findByTitle(String title);
     List<Book> findAllByGenre(Genre genre);
+    List<Book> findAllByAuthor(Author author);
     
 
     @Query("""
@@ -34,15 +35,5 @@ public interface BooksRepository extends JpaRepository<Book, Long> {
         SELECT b FROM Book b WHERE b.author = :author
             """)
     List<Book> searchByAuthor(@Param("author") Author author);
-    // @Query("""
-    //         select b from Book b
-    //         where upper(b.title) like upper(concat(?1, '%')) or upper(b.writer) like upper(concat(?2, '%')) or upper(b.title) like upper(concat('%', ?3)) or upper(b.writer) like upper(concat('%', ?4))""")
-    // List<Book> search(String title, String writer, String title1, String writer1);
-    
-    
-
-
-
-
 }
 

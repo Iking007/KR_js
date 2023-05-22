@@ -5,8 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.serverBooksOnly.Token.Token;
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
 import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -39,11 +37,11 @@ public class User implements UserDetails{
         CascadeType.PERSIST,
                 CascadeType.MERGE
     })
-    @JoinTable(name = "user_book",
+    @JoinTable(name = "favorites",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id")
     )
-    private Set<Book> favorites;
+    private List<Book> favorites;
 
     public void addFavorite(Book book){
         favorites.add(book);

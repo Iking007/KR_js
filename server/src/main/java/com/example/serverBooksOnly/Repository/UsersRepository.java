@@ -1,6 +1,6 @@
 package com.example.serverBooksOnly.Repository;
 
-
+import com.example.serverBooksOnly.Model.Book;
 import com.example.serverBooksOnly.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,4 +11,5 @@ public interface UsersRepository extends JpaRepository<User, Long> {
 
     List<User> findAll();
     Optional<User> findByEmail(String email);
+    Optional<User> findByFavorites(Book book);
 }

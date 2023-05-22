@@ -2,6 +2,11 @@ package com.example.serverBooksOnly.Controller;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.serverBooksOnly.Model.Author;
 import com.example.serverBooksOnly.Model.Book;
 import com.example.serverBooksOnly.Model.Genre;
+import com.example.serverBooksOnly.Model.User;
 import com.example.serverBooksOnly.Repository.AuthorRepository;
 import com.example.serverBooksOnly.Repository.BooksRepository;
 import com.example.serverBooksOnly.Repository.GenreRepository;
 import com.example.serverBooksOnly.Repository.UsersRepository;
 import com.example.serverBooksOnly.Requests.AuthorRequest;
 import com.example.serverBooksOnly.Requests.BookRequest;
+import com.example.serverBooksOnly.Requests.FavoriteRequest;
 import com.example.serverBooksOnly.Requests.GenreRequest;
 import com.example.serverBooksOnly.Token.TokenRepository;
-import com.example.serverBooksOnly.auth.AuthenticationService;
 
 @RestController
 @RequiredArgsConstructor
@@ -57,8 +63,6 @@ public class ModerController {
             .download(request.getDownload())
             .str(request.getStr())
             .build();
-        // Book book = new Book(request.getTitle(), request.getAuthor(), request.getGenre(),
-        //     request.getImg(), request.getDownload(), request.getStr());
         System.out.println(book);
         booksRepository.save(book);
         return;
@@ -96,27 +100,46 @@ public class ModerController {
     public void delbook(
             @RequestParam Long book_id
     ){
-
+        Book book = booksRepository.findById(book_id).get();
+        Iterator<User> usersIterator = book.getUsers().iterator();
+        while(usersIterator.hasNext()) {
+            User user = usersIterator.next();
+            user.delFavorite(book);
+            usersRepository.save(user);
+        }
         booksRepository.deleteById(book_id);
         return;
     }
 
     @GetMapping("/delauthor")
     @CrossOrigin(origins = "*")
-    public void delauthor(
+    public String delauthor(
         @RequestParam Long author_id
     ){
+        booksRepository.deleteAllInBatch(booksRepository.findAllByAuthor(authorRepository.findById(author_id).get()));
         authorRepository.deleteById(author_id);
-        return;
+        List<Author> authors = authorRepository.findAll();
+        String message;
+        JSONObject json = new JSONObject();
+        json.put("authors", authors.toArray());
+        message = json.toString();
+        System.out.println(message);
+        return message;
     }
 
     @GetMapping("/delgenre")
     @CrossOrigin(origins = "*")
-    public void delgenre(
+    public String delgenre(
         @RequestParam Long genre_id
         ){
             booksRepository.deleteAllInBatch(booksRepository.findAllByGenre(genreRepository.findById(genre_id).get()));
             genreRepository.deleteById(genre_id);
-            return;
+            List<Genre> genres = genreRepository.findAll();
+            String message;
+            JSONObject json = new JSONObject();
+            json.put("genres", genres.toArray());
+            message = json.toString();
+            System.out.println(message);
+            return message;
         }
 }

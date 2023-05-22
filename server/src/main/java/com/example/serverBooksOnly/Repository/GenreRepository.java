@@ -1,6 +1,5 @@
 package com.example.serverBooksOnly.Repository;
 
-
 import com.example.serverBooksOnly.Model.Genre;
 import org.springframework.data.jpa.repository.JpaRepository;
 
