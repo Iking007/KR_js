@@ -7,6 +7,7 @@ services:
     restart: always
     ports:
       - "3000:3000"
+      - "8080:8080"
       
   java-server:
     image: iking007/server_books_only
