@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>serverBooksOnly</artifactId>
+	<artifactId>server_books_only</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>serverBooksOnly</name>
+	<name>kr/server_books_only</name>
 	<description>Server api for Books only</description>
 	<properties>
 		<java.version>17</java.version>
@@ -52,6 +52,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
+			<version>42.6.0</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -81,10 +82,10 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 
 	<build>

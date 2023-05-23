@@ -1,0 +1,27 @@
+version: '1'
+services:
+  node-client:
+    build: 
+      context: ./
+      dockerfile: ./docker/node/Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+      
+  java-server:
+    image: iking007/server_books_only
+    container_name: localhost
+    restart: always
+    ports:
+      - "8080:8080"
+
+  db:
+    build: /docker/db
+    container_name: books_only
+    restart: always
+    environment:
+      POSTGRES_DB: "public"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "rootuser"
+    ports:
+      - "5432:5432"
