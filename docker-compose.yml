@@ -5,13 +5,13 @@ services:
       context: ./
       dockerfile: ./docker/node/Dockerfile
     restart: always
+    links:
+      - "java-server:localhost"
     ports:
       - "3000:3000"
-      - "8080:8080"
       
   java-server:
     image: iking007/server_books_only
-    container_name: localhost
     restart: always
     ports:
       - "8080:8080"
