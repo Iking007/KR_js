@@ -16,7 +16,8 @@ services:
       - "8080:8080"
 
   db:
-    build: /docker/db
+    build: 
+      dockerfile: ./docker/db/Dockerfile
     container_name: books_only
     restart: always
     environment:
