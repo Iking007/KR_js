@@ -23,12 +23,12 @@ SET row_security = off;
 -- Name: books; Type: DATABASE; Schema: -; Owner: postgres
 --
 
-CREATE DATABASE booksWITH TEMPLATE = template0;
+CREATE DATABASE books_only WITH TEMPLATE = template0;
 
 
-ALTER DATABASE books OWNER TO postgres;
+ALTER DATABASE books_only OWNER TO postgres;
 
-\connect books
+\connect books_only
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
