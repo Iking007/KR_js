@@ -3,6 +3,7 @@ import {useLocation} from "react-router-dom";
 import axios from 'axios'
 import "./css/books.css"
 import "./css/addBooks.css"
+import address from '../..';
 
 function AddAuthor(){
     const [name, setName] = useState();
@@ -18,7 +19,7 @@ function AddAuthor(){
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: 'http://localhost:8080/addauthor',
+          url: `http://${address}:8080/addauthor`,
           headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`

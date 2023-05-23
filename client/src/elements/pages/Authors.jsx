@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {Link, useLocation} from "react-router-dom";
 import axios from 'axios'
 import "./css/authors.css";
+import address from '../..';
 
 function Authors(){
     const [page, setPage] = useState([]);
@@ -12,7 +13,7 @@ function Authors(){
     useEffect(() => {
     async function fetchData(url) {
       //console.log(url);
-      await axios.get("http://localhost:8080" + url).then(response => {
+      await axios.get(`http://${address}:8080` + url).then(response => {
           setPage(response.data);
           //console.log(url);
         })
@@ -29,7 +30,7 @@ function Authors(){
       let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `http://localhost:8080/delauthor?author_id=${id}`,
+        url: `http://${address}:8080/delauthor?author_id=${id}`,
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`

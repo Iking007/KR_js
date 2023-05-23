@@ -3,6 +3,7 @@ import {Link, useLocation} from "react-router-dom";
 import axios from 'axios'
 import "./css/books.css"
 import noImg from "./images/no.png"
+import address from '../..';
 
 function Book(){
     const [book, setBook] = useState([]);
@@ -20,7 +21,7 @@ function Book(){
       let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080'+url,
+        url: `http://${address}:8080`+url,
         headers: { 
           'Content-Type': 'application/json',
         }
@@ -28,7 +29,7 @@ function Book(){
       let configAuth = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/auth'+url,
+        url: `http://${address}:8080/auth`+url,
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -56,7 +57,7 @@ function Book(){
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/newfavorite',
+        url: `http://${address}:8080/newfavorite`,
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -81,7 +82,7 @@ function Book(){
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/delfavorite',
+        url: `http://${address}:8080/delfavorite`,
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -104,7 +105,7 @@ function Book(){
       let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `http://localhost:8080/delbook?book_id=${id}`,
+        url: `http://${address}:8080/delbook?book_id=${id}`,
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`

@@ -1,6 +1,7 @@
 import React, { useState} from 'react'
 import {Link, useLocation} from "react-router-dom";
 import axios from "axios";
+import address from '../..';
 
 
 function Login(){
@@ -16,7 +17,7 @@ function Login(){
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/login',
+        url: `http://${address}:8080/login`,
         headers: { 
           'Content-Type': 'application/json'
         },

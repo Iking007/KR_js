@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
 
-global.api = "localhost";
+const address = "java-server";
+export default address;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {Link, useLocation} from "react-router-dom";
 import axios from 'axios'
 import "./css/genres.css"
+import address from '../..';
 
 function Genres(){
     const [page, setPage] = useState([]);
@@ -13,7 +14,7 @@ function Genres(){
     let controller = new AbortController();
     async function fetchData(url) {
       //console.log(url);
-      await axios.get(`http://${global.api}:8080` + url).then(response => {
+      await axios.get(`http://${address}:8080` + url).then(response => {
           setPage(response.data);
         })
         .catch(error => {
@@ -30,7 +31,7 @@ function Genres(){
       let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `http://${global.api}:8080/delgenre?genre_id=${id}`,
+        url: `http://${address}:8080/delgenre?genre_id=${id}`,
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`

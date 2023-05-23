@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {Link,useLocation} from "react-router-dom";
 import axios from "axios";
 import "../blooks/header.css";
+import address from '../..';
 
 function Profile(){
     const [page, setPage] = useState(false);
@@ -18,7 +19,7 @@ function Profile(){
               'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
           };
-          axios.get('http://localhost:8080/prof',config).then(response => {
+          axios.get(`http://${address}:8080/prof`,config).then(response => {
               //console.log(response.data);
               localStorage.role = response.data.role;
               setPage(response.data);

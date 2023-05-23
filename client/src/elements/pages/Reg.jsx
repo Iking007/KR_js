@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import {Link} from "react-router-dom";
 import axios from "axios";
+import address from '../..';
 
 function Reg(){
     const [error, setError] = useState(false);
@@ -15,7 +16,7 @@ function Reg(){
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/reg',
+        url: `http://${address}:8080/reg`,
         headers: { 
           'Content-Type': 'application/json'
         },

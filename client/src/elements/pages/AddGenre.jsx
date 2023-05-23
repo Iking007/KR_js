@@ -3,6 +3,7 @@ import {useLocation} from "react-router-dom";
 import axios from 'axios'
 import "./css/books.css"
 import "./css/addBooks.css"
+import address from '../..';
 
 function AddGenre(){
     const [name, setName] = useState();
@@ -15,7 +16,7 @@ function AddGenre(){
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: 'http://localhost:8080/addgenre',
+          url: `http://${address}:8080/addgenre`,
           headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`

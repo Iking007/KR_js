@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {Link,useLocation} from "react-router-dom";
 import axios from "axios";
 import noImg from "./images/no.png"
+import address from '../..';
 
 function Favorites(){
     const [page, setPage] = useState([]);
@@ -17,7 +18,7 @@ function Favorites(){
               'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
           };
-          axios.get('http://localhost:8080/favorites',config).then(response => {
+          axios.get(`http://${address}:8080/favorites`,config).then(response => {
               console.log(response.data);
             //   localStorage.role = response.data.role;
               setPage(response.data);

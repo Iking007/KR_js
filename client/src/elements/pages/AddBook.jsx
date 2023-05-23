@@ -3,6 +3,7 @@ import {useLocation} from "react-router-dom";
 import axios from 'axios'
 import "./css/books.css"
 import "./css/addBooks.css"
+import address from '../..';
 
 function AddBook(){
     const [genres, setGenres] = useState([]);
@@ -20,13 +21,13 @@ function AddBook(){
     useEffect(() => {
     async function fetchData(url) {
       console.log(url);
-      await axios.get("http://localhost:8080/genres").then(response => {
+      await axios.get(`http://${address}:8080/genres`).then(response => {
             setGenres(response.data.genres);
         })
         .catch(error => {
           console.log(error.config);
         })
-        await axios.get("http://localhost:8080/authors").then(response => {
+        await axios.get(`http://${address}:8080/authors`).then(response => {
             setAuthors(response.data.authors);
         })
         .catch(error => {
@@ -42,7 +43,7 @@ function AddBook(){
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: 'http://localhost:8080/addbook',
+          url: `http://${address}:8080/addbook`,
           headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`

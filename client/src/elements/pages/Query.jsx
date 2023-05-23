@@ -3,6 +3,7 @@ import {Link, useLocation} from "react-router-dom";
 import axios from 'axios'
 import noImg from "./images/no.png"
 import "./css/books.css"
+import address from '../..';
 
 function Query(){
     const [page, setPage] = useState([]);
@@ -19,7 +20,7 @@ function Query(){
     useEffect(() => {
         function fetchData() {
             //console.log("http://localhost:8080/query?"+"page=" + numPage + ((filter) ? ("&filter=" + filter):"") + ((genre_id) ? ("&genre_id=" + genre_id):"")+ ((genre_id) ? ("&author_id=" + author_id):""));
-            axios.get("http://localhost:8080/query?"+"page=" + numPage + ((filter) ? ("&filter=" + filter): "") + 
+            axios.get(`http://${address}:8080/query?`+"page=" + numPage + ((filter) ? ("&filter=" + filter): "") + 
                 ((genre_id) ? ("&genre_id=" + genre_id):"")+ 
                 ((author_id) ? ("&author_id=" + author_id):"")).then(response => {
                 //console.log(response.data) // значение параметра "myQueryParam" из URL

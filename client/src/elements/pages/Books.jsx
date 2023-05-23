@@ -3,6 +3,7 @@ import {Link, useLocation} from "react-router-dom";
 import axios from 'axios'
 import "./css/books.css"
 import noImg from "./images/no.png"
+import address from '../..';
 
 function Books(){
     const [page, setPage] = useState([]);
@@ -14,7 +15,7 @@ function Books(){
     useEffect(() => {
     async function fetchData() {
         let controller = new AbortController();
-        await axios.get("http://localhost:8080/books/" + numPage).then(response => {
+        await axios.get(`http://${address}:8080/books/` + numPage).then(response => {
             setPage(response.data);
           })
           .catch(error => {
