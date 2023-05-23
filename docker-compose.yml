@@ -17,7 +17,6 @@ services:
 
   db:
     build: 
-      context: ./docker/db/
       dockerfile: ./docker/db/Dockerfile
     container_name: books_only
     restart: always
