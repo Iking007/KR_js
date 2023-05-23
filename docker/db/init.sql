@@ -20,15 +20,15 @@ SET row_security = off;
 
 --
 -- TOC entry 3344 (class 1262 OID 24675)
--- Name: books_only; Type: DATABASE; Schema: -; Owner: postgres
+-- Name: books; Type: DATABASE; Schema: -; Owner: postgres
 --
 
-CREATE DATABASE books_only WITH TEMPLATE = template0;
+CREATE DATABASE booksWITH TEMPLATE = template0;
 
 
-ALTER DATABASE books_only OWNER TO postgres;
+ALTER DATABASE books OWNER TO postgres;
 
-\connect books_only
+\connect books
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -49,5 +49,4 @@ SET default_table_access_method = heap;
 -- TOC entry 214 (class 1259 OID 24676)
 -- Name: book; Type: TABLE; Schema: public; Owner: postgres
 --
-
 
