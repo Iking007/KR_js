@@ -35,7 +35,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                     .requestMatchers("/", "/query", "/books/**", "/book/**", "/reg", "/login", "/genres", "/authors")// Указанное здесь будет доступно для всех пользователей
                     .permitAll()
-                    .requestMatchers("/allbooks").hasRole(Role.ADMIN.name())
+                    .requestMatchers("/allbooks", "/users").hasRole(Role.ADMIN.name())
                     .requestMatchers("/addbook", "/addgenre", "/addauthor", "/delauthor", "/delgenre", "/delbook").hasAnyRole(Role.ADMIN.name(), Role.MODER.name())
                     .anyRequest()
                     .authenticated()

@@ -10,11 +10,9 @@ function AddAuthor(){
     const [surname, setSurname] = useState();
     const [middle_name, setDownload] = useState();
     const [str, setStr] = useState();
-
-    const location = useLocation();
-    const url = location.pathname;
     
     const post = (data = {}) => {
+        if (name == null || str == null) return;
         console.log(data);
         let config = {
           method: 'post',
@@ -28,7 +26,7 @@ function AddAuthor(){
         };
         axios.request(config).then(response => {
             console.log(response.data);
-            //window.location.replace("/prof")
+            window.location.replace("/prof")
             //console.log(response.data);
           })
           .catch(error => {

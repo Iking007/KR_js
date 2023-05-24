@@ -51,6 +51,12 @@ function Profile(){
                       </>): 
                       null
                     }
+                    {page.role == "ADMIN" ? 
+                      (<>
+                        <Link to="/users" class="my_button">Все пользователи</Link>
+                      </>): 
+                      null
+                    }
                 </div>
               ): 
               (

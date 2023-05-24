@@ -19,8 +19,8 @@ function AddBook(){
     const url = location.pathname;
     
     useEffect(() => {
-    async function fetchData(url) {
-      console.log(url);
+    async function fetchData() {
+    //   console.log(url);
       await axios.get(`http://${address}:8080/genres`).then(response => {
             setGenres(response.data.genres);
         })
@@ -35,7 +35,7 @@ function AddBook(){
         })
     }
     if ("/add/book" == url) {
-    fetchData(url)};
+    fetchData()};
     },["/add/book" == url ? true: false]);
 
     const post = (data = {}) => {

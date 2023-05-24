@@ -7,9 +7,6 @@ import address from '../..';
 
 function AddGenre(){
     const [name, setName] = useState();
-
-    const location = useLocation();
-    const url = location.pathname;
     
     const post = (data = {}) => {
         console.log(data);
@@ -25,7 +22,7 @@ function AddGenre(){
         };
         axios.request(config).then(response => {
             console.log(response.data);
-            //window.location.replace("/prof")
+            window.location.replace("/prof")
             //console.log(response.data);
           })
           .catch(error => {
@@ -41,7 +38,7 @@ function AddGenre(){
                     class="form-control" value={name} onInput={e => setName(e.target.value)} autocomplete="off"/><br/>
                 <button class="my-button" onClick={() => post({
                     'name': name
-                })}>Добавить Автора</button>
+                })}>Добавить жанр</button>
             </form>
         </div>
     )
