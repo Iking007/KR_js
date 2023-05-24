@@ -137,9 +137,9 @@ function Book(){
                   {book.download != null ? <a class="btn btn-success" to={`${book.download}`}>Скачать</a>: null}
                   <p class="fs-5 text-muted mb-1" >Жанр: {book.genre? book.genre.name: "Не указан"}</p>
                   <p class="fs-5 text-muted mb-1" >Книгу написал: {book.author ? book.author.name: "Не указано"}</p>
-                  {(localStorage.role == "MODER" || localStorage.role == "ADMIN") ? (<Link class="btn btn-success" to={`/update/${book.id}`}>Редактировать</Link>): null}<br/>
+                  {/* {(localStorage.role == "MODER" || localStorage.role == "ADMIN") ? (<Link class="btn btn-success" to={`/update/${book.id}`}>Редактировать</Link>): null}<br/> */}
                   {
-                    localStorage.role != null ? 
+                    localStorage.role == "MODER" || localStorage.role == "ADMIN" ? 
                     <button type='button' class="btn btn-success my-sm-3" onClick={() => del(book.id)}>Удалить</button>: null
                   }<br/>
                   {

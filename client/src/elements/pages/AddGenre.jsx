@@ -21,8 +21,8 @@ function AddGenre(){
           data: data
         };
         axios.request(config).then(response => {
-            console.log(response.data);
-            window.location.replace("/prof")
+            //console.log(response.data);
+            window.location.href = "/prof"
             //console.log(response.data);
           })
           .catch(error => {
