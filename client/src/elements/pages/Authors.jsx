@@ -56,7 +56,7 @@ function Authors(){
                       <Link to={`/books/query?author=${author.id}&page=1`}>
                           <h3>{author.name}</h3>
                       </Link>
-                      {localStorage.role == "ADMIN" ? <div onClick={() => del(author.id)}>❌</div>: null}
+                      {localStorage.role == "ADMIN" || localStorage.role == "MODER" ? <div onClick={() => del(author.id)}>❌</div>: null}
                     </div>
                   ))}
                 </div>

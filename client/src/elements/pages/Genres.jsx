@@ -56,7 +56,7 @@ function Genres(){
                   <Link to={`/books/query?genre=${genre.id}&page=1`}>
                       <h3>{genre.name}</h3>
                   </Link>
-                  {localStorage.role == "ADMIN" ? <div onClick={() => del(genre.id)}>❌</div>: null}
+                  {localStorage.role == "ADMIN" || localStorage.role == "MODER" ? <div onClick={() => del(genre.id)}>❌</div>: null}
                 </div>
                 ))}
               </div>
