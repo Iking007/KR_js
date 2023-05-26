@@ -49,7 +49,7 @@ function Authors(){
         {page.authors ? 
             (
               <div>
-                {localStorage.role == "ADMIN" ? <h4>При удалении удалятся и все книги Автора</h4>: null}
+                {localStorage.role == "ADMIN" || localStorage.role == "MODER" ? <h4>При удалении удалятся и все книги Автора</h4>: null}
                 <div class="my-author"> 
                   {page.authors.map(author => (
                     <div class="my-author">

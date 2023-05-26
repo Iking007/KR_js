@@ -49,7 +49,7 @@ function Genres(){
         {page.genres ? 
           (
             <div>
-              {localStorage.role == "ADMIN" ? <h4>При удалении удалятся и все книги жанра</h4>: null}
+              {localStorage.role == "ADMIN" || localStorage.role == "MODER"? <h4>При удалении удалятся и все книги жанра</h4>: null}
               <div class="my-genre">
                 {page.genres.map(genre => (
                   <div>
