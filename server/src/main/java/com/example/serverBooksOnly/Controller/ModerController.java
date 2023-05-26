@@ -61,6 +61,7 @@ public class ModerController {
             .author(author)
             .genre(genre)
             .download(request.getDownload())
+            .img(request.getImg())
             .str(request.getStr())
             .build();
         System.out.println(book);
