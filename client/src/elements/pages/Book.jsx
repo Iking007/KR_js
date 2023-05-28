@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import {Link, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import axios from 'axios'
 import "./css/books.css"
 import noImg from "./images/no.png"
@@ -102,6 +102,7 @@ function Book(){
     };
     const del = (id) => {
       let controller = new AbortController();
+      window.location.reload("/")
       let config = {
         method: 'get',
         maxBodyLength: Infinity,
@@ -112,7 +113,6 @@ function Book(){
         },
       };
       axios.request(config).then(response => {
-          window.location.reload("/")
         })
         .catch(error => {
           console.log(error.config);

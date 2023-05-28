@@ -34,7 +34,7 @@ function AddAuthor(){
       };
     return(
         <div>
-            Добавление книги
+            Добавление Автора
             <form>
                 <input type="text" required
                     name="name" placeholder="Введите Имя"

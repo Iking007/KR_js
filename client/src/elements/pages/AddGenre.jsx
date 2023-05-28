@@ -31,7 +31,7 @@ function AddGenre(){
       };
     return(
         <div>
-            Добавление жанра
+            Добавление Жанра
             <form>
                 <input type="text" required
                     name="name" placeholder="Введите жанр"
