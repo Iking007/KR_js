@@ -54,7 +54,7 @@ function Authors(){
                   {page.authors.map(author => (
                     <div class="my-author">
                       <Link to={`/books/query?author=${author.id}&page=1`}>
-                          <h3>{author.name}</h3>
+                          <h3>{author.name} {author.surname}</h3>
                       </Link>
                       {localStorage.role == "ADMIN" || localStorage.role == "MODER" ? <div onClick={() => del(author.id)}>❌</div>: null}
                     </div>

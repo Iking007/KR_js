@@ -19,6 +19,7 @@
 .my-book{
     margin-left: 4vw; 
     min-width: 16.10vw;
+    min-height: 450px;
 }
 .my-book img, h3{
     width: 280px;

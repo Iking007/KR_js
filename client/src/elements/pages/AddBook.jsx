@@ -65,7 +65,7 @@ function AddBook(){
     };
 
     var MakeItemAuthor = function(X) {
-        return <option value={X.id}>{X.name}</option>;
+        return <option value={X.id}>{X.name} {X.surname}</option>;
     };
     return(
         <div>
